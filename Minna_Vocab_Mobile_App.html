@@ -1,0 +1,3946 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- PWA / Fullscreen Chrome Mobile Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#080c16">
+    <meta name="application-name" content="Minna Vocab">
+    <meta name="apple-mobile-web-app-title" content="Minna Vocab">
+    
+    <title>Từ Vựng Tiếng Nhật Bài 8 - 14 | Mobile App</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #080c16;
+            --bg-card: rgba(18, 24, 38, 0.92);
+            --bg-card-elevated: rgba(26, 35, 54, 0.95);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(99, 102, 241, 0.5);
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.35);
+            --sakura: #f43f5e;
+            --cyan: #06b6d4;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --text-muted: #64748b;
+            --radius-card: 16px;
+            --radius-btn: 12px;
+            --bottom-nav-height: 64px;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 5%, rgba(244, 63, 94, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 50% 90%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+            background-attachment: fixed;
+            padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 20px);
+        }
+
+        .jp-font {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+
+        /* Top Sticky Header */
+        .mobile-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(8, 12, 22, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 14px;
+        }
+
+        .header-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mobile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #f43f5e 0%, #6366f1 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 17px;
+            color: #fff;
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.4);
+            flex-shrink: 0;
+        }
+
+        .brand-text h1 {
+            font-size: 15px;
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(to right, #ffffff, #fed7aa, #c7d2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text p {
+            font-size: 10px;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-romaji-toggle {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.35);
+            color: var(--text-main);
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-romaji-toggle.active {
+            background: rgba(244, 63, 94, 0.18);
+            border-color: rgba(244, 63, 94, 0.4);
+        }
+
+        .btn-link-quiz {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: #a5b4fc;
+            text-decoration: none;
+            padding: 6px 8px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Horizontal Lesson Selector Pills */
+        .lesson-scroll-container {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 10px 0 2px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .lesson-scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .pill-tab {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .pill-tab .badge-num {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .pill-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 2px 10px var(--primary-glow);
+        }
+
+        .pill-tab.active .badge-num {
+            background: rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+        }
+
+        /* Search & Quick Filter Bar */
+        .mobile-search-bar {
+            padding: 10px 14px 4px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .search-box-mobile {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input-mobile {
+            width: 100%;
+            background: rgba(18, 24, 38, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 32px 8px 34px;
+            font-size: 13px;
+            color: #fff;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .search-input-mobile:focus {
+            border-color: var(--primary);
+            background: rgba(28, 38, 60, 0.95);
+        }
+
+        .search-icon-mobile {
+            position: absolute;
+            left: 10px;
+            font-size: 13px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .search-clear-mobile {
+            position: absolute;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 14px;
+            cursor: pointer;
+            padding: 4px;
+            display: none;
+        }
+
+        .btn-toggle-blind {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-toggle-blind.active {
+            background: rgba(244, 63, 94, 0.15);
+            border-color: rgba(244, 63, 94, 0.4);
+            color: #fda4af;
+        }
+
+        /* Main View Container */
+        main {
+            padding: 8px 14px;
+            flex-grow: 1;
+        }
+
+        /* MODE 1: VOCABULARY LIST */
+        .mobile-vocab-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mobile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 14px 14px 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+        .mobile-card:active {
+            transform: scale(0.99);
+        }
+
+        .mobile-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-badges-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag-lesson {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .tag-type {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-sub);
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .card-top-btns {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-circle:active {
+            transform: scale(0.9);
+            background: rgba(99, 102, 241, 0.25);
+        }
+        .btn-circle.starred {
+            color: #fbbf24;
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.35);
+        }
+
+        .mobile-card-japanese {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .jp-kanji {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.02em;
+            line-height: 1.3;
+        }
+
+        .jp-kana {
+            font-size: 15px;
+            font-weight: 500;
+            color: #fed7aa;
+        }
+
+        .jp-romaji {
+            font-size: 12px;
+            font-weight: 600;
+            color: #818cf8;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 2px;
+        }
+
+        .mobile-card-meaning {
+            font-size: 14px;
+            font-weight: 500;
+            color: #e2e8f0;
+            line-height: 1.45;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px 10px;
+            border-radius: 8px;
+            border-left: 3px solid var(--sakura);
+            margin-top: 2px;
+        }
+
+        /* Romaji & Meaning Hide Rules */
+        body.hide-romaji .jp-romaji,
+        body.hide-romaji #fc-romaji,
+        body.hide-romaji .quiz-sub-romaji {
+            display: none !important;
+        }
+
+        body.hide-meaning .mobile-card-meaning {
+            filter: blur(5px);
+            opacity: 0.15;
+            user-select: none;
+        }
+        body.hide-meaning .mobile-card-meaning:active {
+            filter: none;
+            opacity: 1;
+        }
+
+        /* MODE 2: FLASHCARD 3D (Mobile optimized) */
+        .fc-mobile-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-top: 6px;
+        }
+
+        .fc-top-status {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+
+        .fc-progress-line {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .fc-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f43f5e, #6366f1);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .fc-mobile-card-box {
+            width: 100%;
+            height: 340px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .fc-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 20px;
+        }
+        .fc-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .fc-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.6);
+            user-select: none;
+        }
+
+        .fc-face-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.98));
+            border-color: rgba(99, 102, 241, 0.35);
+        }
+
+        .fc-center-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .fc-mobile-controls {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-fc-nav {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 12px 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .btn-fc-nav:active {
+            transform: scale(0.96);
+        }
+
+        .btn-fc-learned {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #6ee7b7;
+        }
+
+        .btn-fc-review {
+            background: rgba(244, 63, 94, 0.18);
+            border-color: rgba(244, 63, 94, 0.4);
+            color: #fda4af;
+        }
+
+        /* MODE 3: QUIZ PRACTICE */
+        .quiz-mobile-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 4px;
+        }
+
+        .quiz-q-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 24px 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quiz-opts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn-quiz-opt {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border);
+            color: var(--text-main);
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: left;
+            line-height: 1.35;
+        }
+        .btn-quiz-opt:active {
+            transform: scale(0.98);
+        }
+        .btn-quiz-opt .opt-tag {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        .btn-quiz-opt.correct {
+            background: rgba(16, 185, 129, 0.25);
+            border-color: #10b981;
+            color: #6ee7b7;
+        }
+        .btn-quiz-opt.wrong {
+            background: rgba(244, 63, 94, 0.25);
+            border-color: #f43f5e;
+            color: #fda4af;
+        }
+        .btn-quiz-opt.disabled {
+            pointer-events: none;
+        }
+
+        .quiz-feedback-box {
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            display: none;
+            line-height: 1.4;
+        }
+        .quiz-feedback-box.correct {
+            display: block;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #6ee7b7;
+        }
+        .quiz-feedback-box.wrong {
+            display: block;
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid rgba(244, 63, 94, 0.35);
+            color: #fda4af;
+        }
+
+        /* Fixed Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(8, 12, 22, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            height: calc(var(--bottom-nav-height) + var(--safe-bottom));
+            padding-bottom: var(--safe-bottom);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: var(--text-muted);
+            text-decoration: none;
+            background: none;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            padding: 6px 12px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-tab-icon {
+            font-size: 20px;
+            line-height: 1;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-tab-label {
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .nav-tab-item.active {
+            color: #6366f1;
+        }
+        .nav-tab-item.active .nav-tab-icon {
+            transform: scale(1.15);
+        }
+
+        .nav-badge-pill {
+            position: absolute;
+            top: 2px;
+            right: 8px;
+            background: var(--sakura);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1px 5px;
+            border-radius: 8px;
+        }
+
+        /* Empty State */
+        .mobile-empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Sticky Mobile Header -->
+    <header class="mobile-header">
+        <div class="header-top-row">
+            <a href="#" class="brand-mobile">
+                <div class="brand-icon">日</div>
+                <div class="brand-text">
+                    <h1>Minna 8 - 14</h1>
+                    <p>Học Từ Vựng Di Động</p>
+                </div>
+            </a>
+
+            <div class="header-actions">
+                <button class="btn-romaji-toggle" id="btn-romaji-mobile" onclick="toggleRomajiMobile()">
+                    🔤 <span id="romaji-txt">Romaji: BẬT</span>
+                </button>
+                <a href="japanese_quiz_app.html" class="btn-link-quiz" title="Luyện Quiz 8-12">
+                    🎯 Quiz
+                </a>
+            </div>
+        </div>
+
+        <!-- Horizontal Scrollable Lesson Tabs -->
+        <div class="lesson-scroll-container" id="lesson-scroll-pills">
+            <button class="pill-tab active" onclick="selectLessonMobile('all')">
+                Tất cả <span class="badge-num" id="pill-count-all">297</span>
+            </button>
+            <button class="pill-tab" onclick="selectLessonMobile(8)">
+                Bài 8 <span class="badge-num" id="pill-count-8">44</span>
+            </button>
+            <button class="pill-tab" onclick="selectLessonMobile(9)">
+                Bài 9 <span class="badge-num" id="pill-count-9">42</span>
+            </button>
+            <button class="pill-tab" onclick="selectLessonMobile(10)">
+                Bài 10 <span class="badge-num" id="pill-count-10">42</span>
+            </button>
+            <button class="pill-tab" onclick="selectLessonMobile(11)">
+                Bài 11 <span class="badge-num" id="pill-count-11">38</span>
+            </button>
+            <button class="pill-tab" onclick="selectLessonMobile(12)">
+                Bài 12 <span class="badge-num" id="pill-count-12">50</span>
+            </button>
+            <button class="pill-tab" onclick="selectLessonMobile(13)">
+                Bài 13 <span class="badge-num" id="pill-count-13">27</span>
+            </button>
+            <button class="pill-tab" onclick="selectLessonMobile(14)">
+                Bài 14 <span class="badge-num" id="pill-count-14">54</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Search & Quick Toggle Bar (Active on List & Starred) -->
+    <div class="mobile-search-bar" id="mobile-search-area">
+        <div class="search-box-mobile">
+            <span class="search-icon-mobile">🔍</span>
+            <input type="text" class="search-input-mobile" id="mobile-search-input" placeholder="Tìm Kanji, Kana, Romaji, nghĩa..." oninput="handleMobileSearch(this.value)">
+            <button class="search-clear-mobile" id="btn-search-clear" onclick="clearMobileSearch()">✕</button>
+        </div>
+        <button class="btn-toggle-blind" id="btn-blind-meaning" onclick="toggleBlindMeaning()">
+            👁️ Ẩn nghĩa
+        </button>
+    </div>
+
+    <!-- Main Content Views -->
+    <main>
+        <!-- VIEW 1: VOCABULARY LIST -->
+        <section id="view-list" class="mobile-vocab-list">
+            <!-- Rendered by JS -->
+        </section>
+
+        <!-- VIEW 2: FLASHCARD 3D -->
+        <section id="view-flashcard" style="display: none;">
+            <div class="fc-mobile-wrapper">
+                <div class="fc-top-status">
+                    <span id="fc-counter-txt">Thẻ 1 / 297</span>
+                    <span>👆 Chạm thẻ để lật</span>
+                </div>
+
+                <div class="fc-progress-line">
+                    <div class="fc-progress-fill" id="fc-bar-fill"></div>
+                </div>
+
+                <div class="fc-mobile-card-box" onclick="flipMobileFc()">
+                    <div class="fc-card" id="fc-card-elem">
+                        <!-- Mặt trước -->
+                        <div class="fc-face fc-face-front">
+                            <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                                <span class="tag-lesson" id="fc-tag-lesson">Bài 8</span>
+                                <span class="tag-type" id="fc-tag-type">Tính từ</span>
+                                <button class="btn-circle" id="fc-star-btn" onclick="event.stopPropagation(); toggleStarCurrentFc();">⭐</button>
+                            </div>
+
+                            <div class="fc-center-info">
+                                <div class="jp-kanji jp-font" id="fc-kanji" style="font-size: 38px;">綺麗「な」</div>
+                                <div class="jp-kana jp-font" id="fc-kana" style="font-size: 22px;">きれい「な」</div>
+                                <div class="jp-romaji" id="fc-romaji" style="font-size: 15px;">kirei[na]</div>
+                            </div>
+
+                            <div style="font-size: 11px; color: var(--text-muted);">
+                                🔄 Chạm để xem nghĩa tiếng Việt
+                            </div>
+                        </div>
+
+                        <!-- Mặt sau -->
+                        <div class="fc-face fc-face-back">
+                            <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                                <span class="tag-lesson" style="background: rgba(16,185,129,0.18); color: #6ee7b7;">NGHĨA TIẾNG VIỆT</span>
+                                <button class="btn-circle" onclick="event.stopPropagation(); speakMobileWord(getCurrentFcItem());">🔊</button>
+                            </div>
+
+                            <div class="fc-center-info">
+                                <div style="font-size: 22px; font-weight: 700; color: #6ee7b7; line-height: 1.4;" id="fc-meaning-back">
+                                    Đẹp, sạch sẽ
+                                </div>
+                                <div class="jp-kana jp-font" id="fc-kana-back" style="font-size: 15px; color: #fed7aa; margin-top: 6px;">
+                                    きれい「な」
+                                </div>
+                            </div>
+
+                            <div style="font-size: 11px; color: var(--text-muted);">
+                                🔄 Chạm để lật lại mặt trước
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Touch Controls -->
+                <div class="fc-mobile-controls">
+                    <button class="btn-fc-nav btn-fc-review" onclick="markFcReview()">
+                        ❌ Cần ôn
+                    </button>
+                    <button class="btn-fc-nav" onclick="speakCurrentFc()" style="background: rgba(99,102,241,0.15);">
+                        🔊 Phát âm
+                    </button>
+                    <button class="btn-fc-nav btn-fc-learned" onclick="markFcMastered()">
+                        ✅ Đã thuộc
+                    </button>
+                </div>
+
+                <div style="display: flex; gap: 8px; width: 100%;">
+                    <button class="btn-fc-nav" style="flex: 1;" onclick="prevMobileFc()">⬅️ Trước</button>
+                    <button class="btn-fc-nav" style="flex: 1;" onclick="nextMobileFc()">Tiếp ➡️</button>
+                    <button class="btn-fc-nav" onclick="shuffleMobileFc()">🔀 Trộn</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 3: QUIZ PRACTICE -->
+        <section id="view-quiz" style="display: none;">
+            <div class="quiz-mobile-wrapper">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="tag-lesson" id="quiz-badge-lesson">Bài 8 - Trắc nghiệm</span>
+                    <span style="font-size: 13px; font-weight: 700; color: var(--primary);">
+                        Câu <span id="quiz-num-curr">1</span> / <span id="quiz-num-total">10</span>
+                    </span>
+                </div>
+
+                <div class="quiz-q-card">
+                    <div style="font-size: 11px; color: var(--text-muted); font-weight: 700;">CHỌN NGHĨA CHÍNH XÁC:</div>
+                    <div class="jp-kanji jp-font" id="quiz-main-text" style="font-size: 32px; color: #fff;">きれい「な」</div>
+                    <div class="jp-kana jp-font" id="quiz-sub-text" style="font-size: 16px; color: #fed7aa;">きれい「な」</div>
+                </div>
+
+                <div class="quiz-opts-list" id="quiz-options-box">
+                    <!-- 4 Option buttons populated by JS -->
+                </div>
+
+                <div class="quiz-feedback-box" id="quiz-fb-box"></div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+                    <span style="font-size: 13px; color: var(--text-sub);">
+                        Điểm: <strong id="quiz-score-val" style="color: var(--emerald);">0</strong>
+                    </span>
+                    <button class="btn-fc-nav" id="btn-quiz-next" style="display: none; background: var(--primary); padding: 10px 18px;" onclick="nextQuizMobile()">
+                        Câu tiếp ➔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: STARRED (ĐÃ LƯU) -->
+        <section id="view-starred" style="display: none;" class="mobile-vocab-list">
+            <!-- Starred words rendered by JS -->
+        </section>
+    </main>
+
+    <!-- Fixed Bottom App Navigation Bar -->
+    <nav class="bottom-nav">
+        <button class="nav-tab-item active" id="tab-nav-list" onclick="switchMobileTab('list')">
+            <span class="nav-tab-icon">📋</span>
+            <span class="nav-tab-label">Từ Vựng</span>
+        </button>
+
+        <button class="nav-tab-item" id="tab-nav-flashcard" onclick="switchMobileTab('flashcard')">
+            <span class="nav-tab-icon">🗂️</span>
+            <span class="nav-tab-label">Flashcard</span>
+        </button>
+
+        <button class="nav-tab-item" id="tab-nav-quiz" onclick="switchMobileTab('quiz')">
+            <span class="nav-tab-icon">🎯</span>
+            <span class="nav-tab-label">Trắc Nghiệm</span>
+        </button>
+
+        <button class="nav-tab-item" id="tab-nav-starred" onclick="switchMobileTab('starred')">
+            <span class="nav-tab-icon">⭐</span>
+            <span class="nav-tab-label">Đã Lưu</span>
+            <span class="nav-badge-pill" id="nav-star-count" style="display: none;">0</span>
+        </button>
+    </nav>
+
+    <!-- Dataset -->
+    <script>
+window.japaneseVocabData = [
+    {
+        "lesson_id":  8,
+        "raw_title":  "Bảng tổng hợp từ vựng Bài 8 (Minna no Nihongo) đầy đủ gồm Hiragana/Katakana, Kanji, Romaji và nghĩa tiếng Việt:",
+        "word_count":  44,
+        "words":  [
+                      {
+                          "id":  "8-1",
+                          "stt":  "1",
+                          "kana":  "ハンサム「な」",
+                          "kanji":  "",
+                          "romaji":  "hansamu[na]",
+                          "meaning":  "Đẹp trai"
+                      },
+                      {
+                          "id":  "8-2",
+                          "stt":  "2",
+                          "kana":  "きれい「な」",
+                          "kanji":  "綺麗「な」",
+                          "romaji":  "kirei[na]",
+                          "meaning":  "Đẹp, sạch sẽ (Tính từ đuôi な)"
+                      },
+                      {
+                          "id":  "8-3",
+                          "stt":  "3",
+                          "kana":  "しずか「な」",
+                          "kanji":  "静か「な」",
+                          "romaji":  "shizuka[na]",
+                          "meaning":  "Yên tĩnh"
+                      },
+                      {
+                          "id":  "8-4",
+                          "stt":  "4",
+                          "kana":  "にぎやか「な」",
+                          "kanji":  "賑やか「な」",
+                          "romaji":  "nigiyaka[na]",
+                          "meaning":  "Náo nhiệt, nhộn nhịp"
+                      },
+                      {
+                          "id":  "8-5",
+                          "stt":  "5",
+                          "kana":  "ゆうめい「な」",
+                          "kanji":  "有名「な」",
+                          "romaji":  "yuumei[na]",
+                          "meaning":  "Nổi tiếng"
+                      },
+                      {
+                          "id":  "8-6",
+                          "stt":  "6",
+                          "kana":  "しんせつ「な」",
+                          "kanji":  "親切「な」",
+                          "romaji":  "shinsetsu[na]",
+                          "meaning":  "Thân thiện, tốt bụng"
+                      },
+                      {
+                          "id":  "8-7",
+                          "stt":  "7",
+                          "kana":  "げんき「な」",
+                          "kanji":  "元気「な」",
+                          "romaji":  "genki[na]",
+                          "meaning":  "Khỏe mạnh"
+                      },
+                      {
+                          "id":  "8-8",
+                          "stt":  "8",
+                          "kana":  "ひま「な」",
+                          "kanji":  "暇「な」",
+                          "romaji":  "hima[na]",
+                          "meaning":  "Rảnh rỗi"
+                      },
+                      {
+                          "id":  "8-9",
+                          "stt":  "9",
+                          "kana":  "べんり「な」",
+                          "kanji":  "便利「な」",
+                          "romaji":  "benri[na]",
+                          "meaning":  "Tiện lợi"
+                      },
+                      {
+                          "id":  "8-10",
+                          "stt":  "10",
+                          "kana":  "すてき「な」",
+                          "kanji":  "素敵「な」",
+                          "romaji":  "suteki[na]",
+                          "meaning":  "Tuyệt vời, đẹp đẽ"
+                      },
+                      {
+                          "id":  "8-11",
+                          "stt":  "11",
+                          "kana":  "おおきい",
+                          "kanji":  "大きい",
+                          "romaji":  "ookii",
+                          "meaning":  "To, lớn"
+                      },
+                      {
+                          "id":  "8-12",
+                          "stt":  "12",
+                          "kana":  "ちいさい",
+                          "kanji":  "小さい",
+                          "romaji":  "chiisai",
+                          "meaning":  "Nhỏ, bé"
+                      },
+                      {
+                          "id":  "8-13",
+                          "stt":  "13",
+                          "kana":  "あたらしい",
+                          "kanji":  "新しい",
+                          "romaji":  "atarashii",
+                          "meaning":  "Mới"
+                      },
+                      {
+                          "id":  "8-14",
+                          "stt":  "14",
+                          "kana":  "ふるい",
+                          "kanji":  "古い",
+                          "romaji":  "furui",
+                          "meaning":  "Cũ (đồ vật)"
+                      },
+                      {
+                          "id":  "8-15",
+                          "stt":  "15",
+                          "kana":  "いい（よい）",
+                          "kanji":  "良い",
+                          "romaji":  "ii (yoi)",
+                          "meaning":  "Tốt, hay"
+                      },
+                      {
+                          "id":  "8-16",
+                          "stt":  "16",
+                          "kana":  "わるい",
+                          "kanji":  "悪い",
+                          "romaji":  "warui",
+                          "meaning":  "Xấu, tồi"
+                      },
+                      {
+                          "id":  "8-17",
+                          "stt":  "17",
+                          "kana":  "あつい",
+                          "kanji":  "暑い",
+                          "romaji":  "atsui",
+                          "meaning":  "Nóng (thời tiết)"
+                      },
+                      {
+                          "id":  "8-18",
+                          "stt":  "18",
+                          "kana":  "あつい",
+                          "kanji":  "熱い",
+                          "romaji":  "atsui",
+                          "meaning":  "Nóng (cảm giác đồ ăn, nước...)"
+                      },
+                      {
+                          "id":  "8-19",
+                          "stt":  "19",
+                          "kana":  "さむい",
+                          "kanji":  "寒い",
+                          "romaji":  "samui",
+                          "meaning":  "Lạnh, rét (thời tiết)"
+                      },
+                      {
+                          "id":  "8-20",
+                          "stt":  "20",
+                          "kana":  "つめたい",
+                          "kanji":  "冷たい",
+                          "romaji":  "tsumetai",
+                          "meaning":  "Lạnh, nguội (cảm giác đồ vật, nước...)"
+                      },
+                      {
+                          "id":  "8-21",
+                          "stt":  "21",
+                          "kana":  "むずかしい",
+                          "kanji":  "難しい",
+                          "romaji":  "muzukashii",
+                          "meaning":  "Khó"
+                      },
+                      {
+                          "id":  "8-22",
+                          "stt":  "22",
+                          "kana":  "やさしい",
+                          "kanji":  "易しい",
+                          "romaji":  "yasashii",
+                          "meaning":  "Dễ (bài tập, câu hỏi)"
+                      },
+                      {
+                          "id":  "8-23",
+                          "stt":  "23",
+                          "kana":  "たかい",
+                          "kanji":  "高い",
+                          "romaji":  "takai",
+                          "meaning":  "Đắt (nghĩa 1) / Cao (nghĩa 2)"
+                      },
+                      {
+                          "id":  "8-24",
+                          "stt":  "24",
+                          "kana":  "やすい",
+                          "kanji":  "安い",
+                          "romaji":  "yasui",
+                          "meaning":  "Rẻ"
+                      },
+                      {
+                          "id":  "8-25",
+                          "stt":  "25",
+                          "kana":  "ひくい",
+                          "kanji":  "低い",
+                          "romaji":  "hikui",
+                          "meaning":  "Thấp"
+                      },
+                      {
+                          "id":  "8-26",
+                          "stt":  "26",
+                          "kana":  "おもしろい",
+                          "kanji":  "面白い",
+                          "romaji":  "omoshiroi",
+                          "meaning":  "Thú vị, hay"
+                      },
+                      {
+                          "id":  "8-27",
+                          "stt":  "27",
+                          "kana":  "おいしい",
+                          "kanji":  "美味しい",
+                          "romaji":  "oishii",
+                          "meaning":  "Ngon"
+                      },
+                      {
+                          "id":  "8-28",
+                          "stt":  "28",
+                          "kana":  "いそがしい",
+                          "kanji":  "忙しい",
+                          "romaji":  "isogashii",
+                          "meaning":  "Bận rộn"
+                      },
+                      {
+                          "id":  "8-29",
+                          "stt":  "29",
+                          "kana":  "たのしい",
+                          "kanji":  "楽しい",
+                          "romaji":  "tanoshii",
+                          "meaning":  "Vui vẻ"
+                      },
+                      {
+                          "id":  "8-30",
+                          "stt":  "30",
+                          "kana":  "しろい",
+                          "kanji":  "白い",
+                          "romaji":  "shiroi",
+                          "meaning":  "Trắng"
+                      },
+                      {
+                          "id":  "8-31",
+                          "stt":  "31",
+                          "kana":  "くろい",
+                          "kanji":  "黒い",
+                          "romaji":  "kuroi",
+                          "meaning":  "Đen"
+                      },
+                      {
+                          "id":  "8-32",
+                          "stt":  "32",
+                          "kana":  "あかい",
+                          "kanji":  "赤い",
+                          "romaji":  "akai",
+                          "meaning":  "Đỏ"
+                      },
+                      {
+                          "id":  "8-33",
+                          "stt":  "33",
+                          "kana":  "あおい",
+                          "kanji":  "青い",
+                          "romaji":  "aoi",
+                          "meaning":  "Xanh da trời, xanh lam"
+                      },
+                      {
+                          "id":  "8-34",
+                          "stt":  "34",
+                          "kana":  "さくら",
+                          "kanji":  "桜",
+                          "romaji":  "sakura",
+                          "meaning":  "Hoa anh đào"
+                      },
+                      {
+                          "id":  "8-35",
+                          "stt":  "35",
+                          "kana":  "やま",
+                          "kanji":  "山",
+                          "romaji":  "yama",
+                          "meaning":  "Núi"
+                      },
+                      {
+                          "id":  "8-36",
+                          "stt":  "36",
+                          "kana":  "まち",
+                          "kanji":  "町",
+                          "romaji":  "machi",
+                          "meaning":  "Phố xá, thị trấn, thành phố"
+                      },
+                      {
+                          "id":  "8-37",
+                          "stt":  "37",
+                          "kana":  "ところ",
+                          "kanji":  "所",
+                          "romaji":  "tokoro",
+                          "meaning":  "Nơi chốn, địa điểm"
+                      },
+                      {
+                          "id":  "8-38",
+                          "stt":  "38",
+                          "kana":  "たべもの",
+                          "kanji":  "食べ物",
+                          "romaji":  "tabemono",
+                          "meaning":  "Đồ ăn, thức ăn"
+                      },
+                      {
+                          "id":  "8-39",
+                          "stt":  "39",
+                          "kana":  "りょう",
+                          "kanji":  "寮",
+                          "romaji":  "ryou",
+                          "meaning":  "Ký túc xá"
+                      },
+                      {
+                          "id":  "8-40",
+                          "stt":  "40",
+                          "kana":  "レストラン",
+                          "kanji":  "",
+                          "romaji":  "resutoran",
+                          "meaning":  "Nhà hàng"
+                      },
+                      {
+                          "id":  "8-41",
+                          "stt":  "41",
+                          "kana":  "せいかつ",
+                          "kanji":  "生活",
+                          "romaji":  "seikatsu",
+                          "meaning":  "Cuộc sống, sinh hoạt"
+                      },
+                      {
+                          "id":  "8-42",
+                          "stt":  "42",
+                          "kana":  "とても",
+                          "kanji":  "",
+                          "romaji":  "totemo",
+                          "meaning":  "Rất (đi với khẳng định)"
+                      },
+                      {
+                          "id":  "8-43",
+                          "stt":  "43",
+                          "kana":  "あまり",
+                          "kanji":  "",
+                          "romaji":  "amari",
+                          "meaning":  "Không... lắm (đi với phủ định)"
+                      },
+                      {
+                          "id":  "8-44",
+                          "stt":  "44",
+                          "kana":  "そして",
+                          "kanji":  "",
+                          "romaji":  "soshite",
+                          "meaning":  "Và, thêm nữa là (nối 2 câu cùng chiều)"
+                      }
+                  ]
+    },
+    {
+        "lesson_id":  9,
+        "raw_title":  "Bảng tổng hợp từ vựng Bài 9 (Minna no Nihongo) đầy đủ gồm Hiragana/Katakana, Kanji, Romaji và nghĩa tiếng Việt:",
+        "word_count":  42,
+        "words":  [
+                      {
+                          "id":  "9-1",
+                          "stt":  "1",
+                          "kana":  "わかります",
+                          "kanji":  "",
+                          "romaji":  "wakarimasu",
+                          "meaning":  "Hiểu, nắm được"
+                      },
+                      {
+                          "id":  "9-2",
+                          "stt":  "2",
+                          "kana":  "あります",
+                          "kanji":  "",
+                          "romaji":  "arimasu",
+                          "meaning":  "Có (sở hữu đồ vật, thời gian, việc bận)"
+                      },
+                      {
+                          "id":  "9-3",
+                          "stt":  "3",
+                          "kana":  "すき「な」",
+                          "kanji":  "好き「な」",
+                          "romaji":  "suki[na]",
+                          "meaning":  "Thích"
+                      },
+                      {
+                          "id":  "9-4",
+                          "stt":  "4",
+                          "kana":  "きらい「な」",
+                          "kanji":  "嫌い「な」",
+                          "romaji":  "kirai[na]",
+                          "meaning":  "Ghét, không thích"
+                      },
+                      {
+                          "id":  "9-5",
+                          "stt":  "5",
+                          "kana":  "じょうず「な」",
+                          "kanji":  "上手「な」",
+                          "romaji":  "jouzu[na]",
+                          "meaning":  "Giỏi, khéo"
+                      },
+                      {
+                          "id":  "9-6",
+                          "stt":  "6",
+                          "kana":  "へた「な」",
+                          "kanji":  "下手「な」",
+                          "romaji":  "heta[na]",
+                          "meaning":  "Kém, dở"
+                      },
+                      {
+                          "id":  "9-7",
+                          "stt":  "7",
+                          "kana":  "のみもの",
+                          "kanji":  "飲み物",
+                          "romaji":  "nomimono",
+                          "meaning":  "Đồ uống, thức uống"
+                      },
+                      {
+                          "id":  "9-8",
+                          "stt":  "8",
+                          "kana":  "りょうり（をします）",
+                          "kanji":  "料理（をします）",
+                          "romaji":  "ryouri (o shimasu)",
+                          "meaning":  "Món ăn, việc nấu ăn (nấu ăn)"
+                      },
+                      {
+                          "id":  "9-9",
+                          "stt":  "9",
+                          "kana":  "スポーツ（をします）",
+                          "kanji":  "",
+                          "romaji":  "supootsu (o shimasu)",
+                          "meaning":  "Thể thao (chơi thể thao)"
+                      },
+                      {
+                          "id":  "9-10",
+                          "stt":  "10",
+                          "kana":  "やきゅう（をします）",
+                          "kanji":  "野球（をします）",
+                          "romaji":  "yakyuu (o shimasu)",
+                          "meaning":  "Bóng chày (chơi bóng chày)"
+                      },
+                      {
+                          "id":  "9-11",
+                          "stt":  "11",
+                          "kana":  "ダンス（をします）",
+                          "kanji":  "",
+                          "romaji":  "dansu (o shimasu)",
+                          "meaning":  "Khiêu vũ, nhảy múa"
+                      },
+                      {
+                          "id":  "9-12",
+                          "stt":  "12",
+                          "kana":  "りょこう（をします）",
+                          "kanji":  "旅行（をします）",
+                          "romaji":  "ryokou (o shimasu)",
+                          "meaning":  "Đi du lịch"
+                      },
+                      {
+                          "id":  "9-13",
+                          "stt":  "13",
+                          "kana":  "おんがく",
+                          "kanji":  "音楽",
+                          "romaji":  "ongaku",
+                          "meaning":  "Âm nhạc"
+                      },
+                      {
+                          "id":  "9-14",
+                          "stt":  "14",
+                          "kana":  "うた",
+                          "kanji":  "歌",
+                          "romaji":  "uta",
+                          "meaning":  "Bài hát"
+                      },
+                      {
+                          "id":  "9-15",
+                          "stt":  "15",
+                          "kana":  "クラシック",
+                          "kanji":  "",
+                          "romaji":  "kurashikku",
+                          "meaning":  "Nhạc cổ điển"
+                      },
+                      {
+                          "id":  "9-16",
+                          "stt":  "16",
+                          "kana":  "ジャズ",
+                          "kanji":  "",
+                          "romaji":  "jazu",
+                          "meaning":  "Nhạc jazz"
+                      },
+                      {
+                          "id":  "9-17",
+                          "stt":  "17",
+                          "kana":  "コンサート",
+                          "kanji":  "",
+                          "romaji":  "konsaato",
+                          "meaning":  "Buổi hòa nhạc"
+                      },
+                      {
+                          "id":  "9-18",
+                          "stt":  "18",
+                          "kana":  "カラオケ",
+                          "kanji":  "",
+                          "romaji":  "karaoke",
+                          "meaning":  "Karaoke"
+                      },
+                      {
+                          "id":  "9-19",
+                          "stt":  "19",
+                          "kana":  "かぶき",
+                          "kanji":  "歌舞伎",
+                          "romaji":  "kabuki",
+                          "meaning":  "Kịch Kabuki (kịch truyền thống Nhật)"
+                      },
+                      {
+                          "id":  "9-20",
+                          "stt":  "20",
+                          "kana":  "え",
+                          "kanji":  "絵",
+                          "romaji":  "e",
+                          "meaning":  "Bức tranh, hội họa"
+                      },
+                      {
+                          "id":  "9-21",
+                          "stt":  "21",
+                          "kana":  "じ",
+                          "kanji":  "字",
+                          "romaji":  "ji",
+                          "meaning":  "Chữ, mặt chữ"
+                      },
+                      {
+                          "id":  "9-22",
+                          "stt":  "22",
+                          "kana":  "こまかいおかね",
+                          "kanji":  "細かいお金",
+                          "romaji":  "komakai okane",
+                          "meaning":  "Tiền lẻ"
+                      },
+                      {
+                          "id":  "9-23",
+                          "stt":  "23",
+                          "kana":  "チケット",
+                          "kanji":  "",
+                          "romaji":  "chiketto",
+                          "meaning":  "Vé (xem phim, hòa nhạc...)"
+                      },
+                      {
+                          "id":  "9-24",
+                          "stt":  "24",
+                          "kana":  "じかん",
+                          "kanji":  "時間",
+                          "romaji":  "jikan",
+                          "meaning":  "Thời gian"
+                      },
+                      {
+                          "id":  "9-25",
+                          "stt":  "25",
+                          "kana":  "ようじ",
+                          "kanji":  "用事",
+                          "romaji":  "youji",
+                          "meaning":  "Việc bận, công chuyện"
+                      },
+                      {
+                          "id":  "9-26",
+                          "stt":  "26",
+                          "kana":  "やくそく（をします）",
+                          "kanji":  "約束（をします）",
+                          "romaji":  "yakusoku (o shimasu)",
+                          "meaning":  "Hứa, hẹn (làm cuộc hẹn/lời hứa)"
+                      },
+                      {
+                          "id":  "9-27",
+                          "stt":  "27",
+                          "kana":  "アルバイト（をします）",
+                          "kanji":  "",
+                          "romaji":  "arubaito (o shimasu)",
+                          "meaning":  "Việc làm thêm (làm thêm)"
+                      },
+                      {
+                          "id":  "9-28",
+                          "stt":  "28",
+                          "kana":  "ごしゅじん",
+                          "kanji":  "ご主人",
+                          "romaji":  "goshujin",
+                          "meaning":  "Chồng (của người khác)"
+                      },
+                      {
+                          "id":  "9-29",
+                          "stt":  "29",
+                          "kana":  "おっと / しゅじん",
+                          "kanji":  "夫 / 主人",
+                          "romaji":  "otto / shujin",
+                          "meaning":  "Chồng (của mình)"
+                      },
+                      {
+                          "id":  "9-30",
+                          "stt":  "30",
+                          "kana":  "おくさん",
+                          "kanji":  "奥さん",
+                          "romaji":  "okusan",
+                          "meaning":  "Vợ (của người khác)"
+                      },
+                      {
+                          "id":  "9-31",
+                          "stt":  "31",
+                          "kana":  "つま / かない",
+                          "kanji":  "妻 / 家内",
+                          "romaji":  "tsuma / kanai",
+                          "meaning":  "Vợ (của mình)"
+                      },
+                      {
+                          "id":  "9-32",
+                          "stt":  "32",
+                          "kana":  "こども",
+                          "kanji":  "子ども",
+                          "romaji":  "kodomo",
+                          "meaning":  "Con cái, trẻ em"
+                      },
+                      {
+                          "id":  "9-33",
+                          "stt":  "33",
+                          "kana":  "よく",
+                          "kanji":  "",
+                          "romaji":  "yoku",
+                          "meaning":  "Tốt, rõ, giỏi (chỉ mức độ)"
+                      },
+                      {
+                          "id":  "9-34",
+                          "stt":  "34",
+                          "kana":  "だいたい",
+                          "kanji":  "",
+                          "romaji":  "daitai",
+                          "meaning":  "Đại khái, phần lớn"
+                      },
+                      {
+                          "id":  "9-35",
+                          "stt":  "35",
+                          "kana":  "たくさん",
+                          "kanji":  "",
+                          "romaji":  "takusan",
+                          "meaning":  "Nhiều (chỉ số lượng)"
+                      },
+                      {
+                          "id":  "9-36",
+                          "stt":  "36",
+                          "kana":  "すこし",
+                          "kanji":  "少し",
+                          "romaji":  "sukoshi",
+                          "meaning":  "Một ít, một chút"
+                      },
+                      {
+                          "id":  "9-37",
+                          "stt":  "37",
+                          "kana":  "ぜんぜん",
+                          "kanji":  "全然",
+                          "romaji":  "zenzen",
+                          "meaning":  "Hoàn toàn ~ không (đi với phủ định)"
+                      },
+                      {
+                          "id":  "9-38",
+                          "stt":  "38",
+                          "kana":  "はやく",
+                          "kanji":  "早く",
+                          "romaji":  "hayaku",
+                          "meaning":  "Sớm"
+                      },
+                      {
+                          "id":  "9-39",
+                          "stt":  "39",
+                          "kana":  "はやく",
+                          "kanji":  "速く",
+                          "romaji":  "hayaku",
+                          "meaning":  "Nhanh"
+                      },
+                      {
+                          "id":  "9-40",
+                          "stt":  "40",
+                          "kana":  "ざんねんです「が」",
+                          "kanji":  "残念です「が」",
+                          "romaji":  "zannendesu [ga]",
+                          "meaning":  "Tiếc thật đấy [nhưng...]"
+                      },
+                      {
+                          "id":  "9-41",
+                          "stt":  "41",
+                          "kana":  "だめですか",
+                          "kanji":  "",
+                          "romaji":  "dame desu ka",
+                          "meaning":  "Không được à? / Không tiện à?"
+                      },
+                      {
+                          "id":  "9-42",
+                          "stt":  "42",
+                          "kana":  "またこんどおねがいします",
+                          "kanji":  "また今度お願いします",
+                          "romaji":  "mata kondo onegaishimasu",
+                          "meaning":  "Hẹn anh/chị lần sau nhé"
+                      }
+                  ]
+    },
+    {
+        "lesson_id":  10,
+        "raw_title":  "Bảng tổng hợp từ vựng Bài 10 (Giáo trình Minna no Nihongo) gồm Hiragana/Katakana, Kanji, Romaji và nghĩa tiếng Việt:",
+        "word_count":  42,
+        "words":  [
+                      {
+                          "id":  "10-1",
+                          "stt":  "1",
+                          "kana":  "あります",
+                          "kanji":  "",
+                          "romaji":  "arimasu",
+                          "meaning":  "Có, tồn tại (dùng cho đồ vật, thực vật)"
+                      },
+                      {
+                          "id":  "10-2",
+                          "stt":  "2",
+                          "kana":  "います",
+                          "kanji":  "",
+                          "romaji":  "imasu",
+                          "meaning":  "Ở, có (dùng cho người và động vật)"
+                      },
+                      {
+                          "id":  "10-3",
+                          "stt":  "3",
+                          "kana":  "いろいろ（な）",
+                          "kanji":  "色々（な）",
+                          "romaji":  "iroiro(na)",
+                          "meaning":  "Nhiều, phong phú, đa dạng"
+                      },
+                      {
+                          "id":  "10-4",
+                          "stt":  "4",
+                          "kana":  "おとこのひと",
+                          "kanji":  "男の人",
+                          "romaji":  "otoko no hito",
+                          "meaning":  "Người đàn ông"
+                      },
+                      {
+                          "id":  "10-5",
+                          "stt":  "5",
+                          "kana":  "おんなのひと",
+                          "kanji":  "女の人",
+                          "romaji":  "onna no hito",
+                          "meaning":  "Người phụ nữ"
+                      },
+                      {
+                          "id":  "10-6",
+                          "stt":  "6",
+                          "kana":  "おとこのこ",
+                          "kanji":  "男の子",
+                          "romaji":  "otoko no ko",
+                          "meaning":  "Cậu bé, bé trai"
+                      },
+                      {
+                          "id":  "10-7",
+                          "stt":  "7",
+                          "kana":  "おんなのこ",
+                          "kanji":  "女の子",
+                          "romaji":  "particle",
+                          "meaning":  "Cô bé, bé gái"
+                      },
+                      {
+                          "id":  "10-8",
+                          "stt":  "8",
+                          "kana":  "いぬ",
+                          "kanji":  "犬",
+                          "romaji":  "inu",
+                          "meaning":  "Con chó"
+                      },
+                      {
+                          "id":  "10-9",
+                          "stt":  "9",
+                          "kana":  "ねこ",
+                          "kanji":  "猫",
+                          "romaji":  "neko",
+                          "meaning":  "Con mèo"
+                      },
+                      {
+                          "id":  "10-10",
+                          "stt":  "10",
+                          "kana":  "パンダ",
+                          "kanji":  "",
+                          "romaji":  "panda",
+                          "meaning":  "Gấu trúc"
+                      },
+                      {
+                          "id":  "10-11",
+                          "stt":  "11",
+                          "kana":  "ぞう",
+                          "kanji":  "象",
+                          "romaji":  "zou",
+                          "meaning":  "Con voi"
+                      },
+                      {
+                          "id":  "10-12",
+                          "stt":  "12",
+                          "kana":  "き",
+                          "kanji":  "木",
+                          "romaji":  "ki",
+                          "meaning":  "Cây, gỗ"
+                      },
+                      {
+                          "id":  "10-13",
+                          "stt":  "13",
+                          "kana":  "もの",
+                          "kanji":  "物",
+                          "romaji":  "mono",
+                          "meaning":  "Đồ vật, vật"
+                      },
+                      {
+                          "id":  "10-14",
+                          "stt":  "14",
+                          "kana":  "でんち",
+                          "kanji":  "電池",
+                          "romaji":  "denchi",
+                          "meaning":  "Cục pin"
+                      },
+                      {
+                          "id":  "10-15",
+                          "stt":  "15",
+                          "kana":  "はこ",
+                          "kanji":  "箱",
+                          "romaji":  "hako",
+                          "meaning":  "Cái hộp"
+                      },
+                      {
+                          "id":  "10-16",
+                          "stt":  "16",
+                          "kana":  "スイッチ",
+                          "kanji":  "",
+                          "romaji":  "suitchi",
+                          "meaning":  "Công tắc"
+                      },
+                      {
+                          "id":  "10-17",
+                          "stt":  "17",
+                          "kana":  "れいぞうこ",
+                          "kanji":  "冷蔵庫",
+                          "romaji":  "reizouko",
+                          "meaning":  "Tủ lạnh"
+                      },
+                      {
+                          "id":  "10-18",
+                          "stt":  "18",
+                          "kana":  "テーブル",
+                          "kanji":  "",
+                          "romaji":  "teeburu",
+                          "meaning":  "Cái bàn (bàn ăn, bàn trà)"
+                      },
+                      {
+                          "id":  "10-19",
+                          "stt":  "19",
+                          "kana":  "ベッド",
+                          "kanji":  "",
+                          "romaji":  "beddo",
+                          "meaning":  "Cái giường"
+                      },
+                      {
+                          "id":  "10-20",
+                          "stt":  "20",
+                          "kana":  "たな",
+                          "kanji":  "棚",
+                          "romaji":  "tana",
+                          "meaning":  "Giá, kệ (sách, đồ)"
+                      },
+                      {
+                          "id":  "10-21",
+                          "stt":  "21",
+                          "kana":  "ドア",
+                          "kanji":  "",
+                          "romaji":  "doa",
+                          "meaning":  "Cửa ra vào"
+                      },
+                      {
+                          "id":  "10-22",
+                          "stt":  "22",
+                          "kana":  "まど",
+                          "kanji":  "窓",
+                          "romaji":  "mado",
+                          "meaning":  "Cửa sổ"
+                      },
+                      {
+                          "id":  "10-23",
+                          "stt":  "23",
+                          "kana":  "ポスト",
+                          "kanji":  "",
+                          "romaji":  "posuto",
+                          "meaning":  "Hộp thư, hòm thư"
+                      },
+                      {
+                          "id":  "10-24",
+                          "stt":  "24",
+                          "kana":  "ビル",
+                          "kanji":  "",
+                          "romaji":  "biru",
+                          "meaning":  "Tòa nhà cao tầng"
+                      },
+                      {
+                          "id":  "10-25",
+                          "stt":  "25",
+                          "kana":  "ATM",
+                          "kanji":  "",
+                          "romaji":  "eetiiemu",
+                          "meaning":  "Máy rút tiền tự động"
+                      },
+                      {
+                          "id":  "10-26",
+                          "stt":  "26",
+                          "kana":  "コンビニ",
+                          "kanji":  "",
+                          "romaji":  "konbini",
+                          "meaning":  "Cửa hàng tiện lợi"
+                      },
+                      {
+                          "id":  "10-27",
+                          "stt":  "27",
+                          "kana":  "こうえん",
+                          "kanji":  "公園",
+                          "romaji":  "kouen",
+                          "meaning":  "Công viên"
+                      },
+                      {
+                          "id":  "10-28",
+                          "stt":  "28",
+                          "kana":  "きっさてん",
+                          "kanji":  "喫茶店",
+                          "romaji":  "kissaten",
+                          "meaning":  "Quán giải khát, quán cà phê"
+                      },
+                      {
+                          "id":  "10-29",
+                          "stt":  "29",
+                          "kana":  "～や",
+                          "kanji":  "～屋",
+                          "romaji":  "~ya",
+                          "meaning":  "Hiệu ~, tiệm ~, cửa hàng ~"
+                      },
+                      {
+                          "id":  "10-30",
+                          "stt":  "30",
+                          "kana":  "のりば",
+                          "kanji":  "乗り場",
+                          "romaji":  "noriba",
+                          "meaning":  "Điểm lên xe (tàu, taxi, xe buýt...)"
+                      },
+                      {
+                          "id":  "10-31",
+                          "stt":  "31",
+                          "kana":  "～けん",
+                          "kanji":  "～県",
+                          "romaji":  "~ken",
+                          "meaning":  "Tỉnh ~"
+                      },
+                      {
+                          "id":  "10-32",
+                          "stt":  "32",
+                          "kana":  "うえ",
+                          "kanji":  "上",
+                          "romaji":  "ue",
+                          "meaning":  "Trên"
+                      },
+                      {
+                          "id":  "10-33",
+                          "stt":  "33",
+                          "kana":  "した",
+                          "kanji":  "下",
+                          "romaji":  "shita",
+                          "meaning":  "Dưới"
+                      },
+                      {
+                          "id":  "10-34",
+                          "stt":  "34",
+                          "kana":  "まえ",
+                          "kanji":  "前",
+                          "romaji":  "mae",
+                          "meaning":  "Trước"
+                      },
+                      {
+                          "id":  "10-35",
+                          "stt":  "35",
+                          "kana":  "うしろ",
+                          "kanji":  "後ろ",
+                          "romaji":  "ushiro",
+                          "meaning":  "Sau"
+                      },
+                      {
+                          "id":  "10-36",
+                          "stt":  "36",
+                          "kana":  "みぎ",
+                          "kanji":  "右",
+                          "romaji":  "migi",
+                          "meaning":  "Phải (bên phải)"
+                      },
+                      {
+                          "id":  "10-37",
+                          "stt":  "37",
+                          "kana":  "ひだり",
+                          "kanji":  "左",
+                          "romaji":  "hidari",
+                          "meaning":  "Trái (bên trái)"
+                      },
+                      {
+                          "id":  "10-38",
+                          "stt":  "38",
+                          "kana":  "なか",
+                          "kanji":  "中",
+                          "romaji":  "naka",
+                          "meaning":  "Trong (bên trong)"
+                      },
+                      {
+                          "id":  "10-39",
+                          "stt":  "39",
+                          "kana":  "そと",
+                          "kanji":  "外",
+                          "romaji":  "soto",
+                          "meaning":  "Ngoài (bên ngoài)"
+                      },
+                      {
+                          "id":  "10-40",
+                          "stt":  "40",
+                          "kana":  "となり",
+                          "kanji":  "隣",
+                          "romaji":  "tonari",
+                          "meaning":  "Kế bên, bên cạnh (cùng loại)"
+                      },
+                      {
+                          "id":  "10-41",
+                          "stt":  "41",
+                          "kana":  "ちかく",
+                          "kanji":  "近く",
+                          "romaji":  "chikaku",
+                          "meaning":  "Gần (khu vực lân cận)"
+                      },
+                      {
+                          "id":  "10-42",
+                          "stt":  "42",
+                          "kana":  "あいだ",
+                          "kanji":  "間",
+                          "romaji":  "aida",
+                          "meaning":  "Ở giữa (giữa A và B)"
+                      }
+                  ]
+    },
+    {
+        "lesson_id":  11,
+        "raw_title":  "Bảng tổng hợp từ vựng Bài 11 (Giáo trình Minna no Nihongo) gồm Hiragana/Katakana, Kanji, Romaji và nghĩa tiếng Việt:",
+        "word_count":  38,
+        "words":  [
+                      {
+                          "id":  "11-1",
+                          "stt":  "1",
+                          "kana":  "います",
+                          "kanji":  "",
+                          "romaji":  "imasu",
+                          "meaning":  "Có (người, động vật)"
+                      },
+                      {
+                          "id":  "11-2",
+                          "stt":  "2",
+                          "kana":  "かかります",
+                          "kanji":  "",
+                          "romaji":  "kakarimasu",
+                          "meaning":  "Tốn, mất (thời gian, tiền bạc)"
+                      },
+                      {
+                          "id":  "11-3",
+                          "stt":  "3",
+                          "kana":  "やすみます",
+                          "kanji":  "休みます",
+                          "romaji":  "yasumimasu",
+                          "meaning":  "Nghỉ (nghỉ làm, nghỉ học)"
+                      },
+                      {
+                          "id":  "11-4",
+                          "stt":  "4",
+                          "kana":  "りょうしん",
+                          "kanji":  "両親",
+                          "romaji":  "ryoushin",
+                          "meaning":  "Cha mẹ, bố mẹ"
+                      },
+                      {
+                          "id":  "11-5",
+                          "stt":  "5",
+                          "kana":  "きょうだい",
+                          "kanji":  "兄弟",
+                          "romaji":  "kyoudai",
+                          "meaning":  "Anh chị em"
+                      },
+                      {
+                          "id":  "11-6",
+                          "stt":  "6",
+                          "kana":  "あに",
+                          "kanji":  "兄",
+                          "romaji":  "ani",
+                          "meaning":  "Anh trai (của mình)"
+                      },
+                      {
+                          "id":  "11-7",
+                          "stt":  "7",
+                          "kana":  "あね",
+                          "kanji":  "姉",
+                          "romaji":  "ane",
+                          "meaning":  "Chị gái (của mình)"
+                      },
+                      {
+                          "id":  "11-8",
+                          "stt":  "8",
+                          "kana":  "おとうと",
+                          "kanji":  "弟",
+                          "romaji":  "otouto",
+                          "meaning":  "Em trai (của mình)"
+                      },
+                      {
+                          "id":  "11-9",
+                          "stt":  "9",
+                          "kana":  "いもうと",
+                          "kanji":  "妹",
+                          "romaji":  "imouto",
+                          "meaning":  "Em gái (của mình)"
+                      },
+                      {
+                          "id":  "11-10",
+                          "stt":  "10",
+                          "kana":  "そふ",
+                          "kanji":  "祖父",
+                          "romaji":  "sofu",
+                          "meaning":  "Ông (của mình)"
+                      },
+                      {
+                          "id":  "11-11",
+                          "stt":  "11",
+                          "kana":  "そぼ",
+                          "kanji":  "祖母",
+                          "romaji":  "sobo",
+                          "meaning":  "Bà (của mình)"
+                      },
+                      {
+                          "id":  "11-12",
+                          "stt":  "12",
+                          "kana":  "そふぼ",
+                          "kanji":  "祖父母",
+                          "romaji":  "sofubo",
+                          "meaning":  "Ông bà (của mình)"
+                      },
+                      {
+                          "id":  "11-13",
+                          "stt":  "13",
+                          "kana":  "りんご",
+                          "kanji":  "",
+                          "romaji":  "ringo",
+                          "meaning":  "Quả táo"
+                      },
+                      {
+                          "id":  "11-14",
+                          "stt":  "14",
+                          "kana":  "みかん",
+                          "kanji":  "",
+                          "romaji":  "mikan",
+                          "meaning":  "Quả quýt"
+                      },
+                      {
+                          "id":  "11-15",
+                          "stt":  "15",
+                          "kana":  "サンドイッチ",
+                          "kanji":  "",
+                          "romaji":  "sandoitchi",
+                          "meaning":  "Bánh sandwich"
+                      },
+                      {
+                          "id":  "11-16",
+                          "stt":  "16",
+                          "kana":  "カレー「ライス」",
+                          "kanji":  "",
+                          "romaji":  "karee [raisu]",
+                          "meaning":  "Cơm cà ri"
+                      },
+                      {
+                          "id":  "11-17",
+                          "stt":  "17",
+                          "kana":  "アイスクリーム",
+                          "kanji":  "",
+                          "romaji":  "aisukuriimu",
+                          "meaning":  "Kem"
+                      },
+                      {
+                          "id":  "11-18",
+                          "stt":  "18",
+                          "kana":  "きって",
+                          "kanji":  "切手",
+                          "romaji":  "kitte",
+                          "meaning":  "Tem thư"
+                      },
+                      {
+                          "id":  "11-19",
+                          "stt":  "19",
+                          "kana":  "はがき",
+                          "kanji":  "葉書",
+                          "romaji":  "hagaki",
+                          "meaning":  "Bưu thiếp"
+                      },
+                      {
+                          "id":  "11-20",
+                          "stt":  "20",
+                          "kana":  "ふうとう",
+                          "kanji":  "封筒",
+                          "romaji":  "fuutou",
+                          "meaning":  "Phong bì"
+                      },
+                      {
+                          "id":  "11-21",
+                          "stt":  "21",
+                          "kana":  "がいこく",
+                          "kanji":  "外国",
+                          "romaji":  "gaikoku",
+                          "meaning":  "Nước ngoài"
+                      },
+                      {
+                          "id":  "11-22",
+                          "stt":  "22",
+                          "kana":  "りゅうがくせい",
+                          "kanji":  "留学生",
+                          "romaji":  "ryuugakusei",
+                          "meaning":  "Lưu học sinh, du học sinh"
+                      },
+                      {
+                          "id":  "11-23",
+                          "stt":  "23",
+                          "kana":  "クラス",
+                          "kanji":  "",
+                          "romaji":  "kurasu",
+                          "meaning":  "Lớp học"
+                      },
+                      {
+                          "id":  "11-24",
+                          "stt":  "24",
+                          "kana":  "ぜんぶで",
+                          "kanji":  "全部で",
+                          "romaji":  "zenbude",
+                          "meaning":  "Tổng cộng"
+                      },
+                      {
+                          "id":  "11-25",
+                          "stt":  "25",
+                          "kana":  "みんな",
+                          "kanji":  "",
+                          "romaji":  "minna",
+                          "meaning":  "Mọi người, tất cả"
+                      },
+                      {
+                          "id":  "11-26",
+                          "stt":  "26",
+                          "kana":  "〜だけ",
+                          "kanji":  "",
+                          "romaji":  "~dake",
+                          "meaning":  "Chỉ ~"
+                      },
+                      {
+                          "id":  "11-27",
+                          "stt":  "27",
+                          "kana":  "〜じかん",
+                          "kanji":  "〜時間",
+                          "romaji":  "~jikan",
+                          "meaning":  "~ tiếng, ~ giờ đồng hồ"
+                      },
+                      {
+                          "id":  "11-28",
+                          "stt":  "28",
+                          "kana":  "〜にち",
+                          "kanji":  "〜日",
+                          "romaji":  "~nichi",
+                          "meaning":  "~ ngày"
+                      },
+                      {
+                          "id":  "11-29",
+                          "stt":  "29",
+                          "kana":  "〜しゅうかん",
+                          "kanji":  "〜週間",
+                          "romaji":  "~shuukan",
+                          "meaning":  "~ tuần"
+                      },
+                      {
+                          "id":  "11-30",
+                          "stt":  "30",
+                          "kana":  "〜かげつ",
+                          "kanji":  "〜か月",
+                          "romaji":  "~kagetsu",
+                          "meaning":  "~ tháng"
+                      },
+                      {
+                          "id":  "11-31",
+                          "stt":  "31",
+                          "kana":  "〜ねん",
+                          "kanji":  "〜年",
+                          "romaji":  "~nen",
+                          "meaning":  "~ năm"
+                      },
+                      {
+                          "id":  "11-32",
+                          "stt":  "32",
+                          "kana":  "ぐらい",
+                          "kanji":  "",
+                          "romaji":  "gurai",
+                          "meaning":  "Khoảng ~"
+                      },
+                      {
+                          "id":  "11-33",
+                          "stt":  "33",
+                          "kana":  "どのくらい",
+                          "kanji":  "",
+                          "romaji":  "donokurai",
+                          "meaning":  "Bao lâu, bao nhiêu"
+                      },
+                      {
+                          "id":  "11-34",
+                          "stt":  "34",
+                          "kana":  "「じかんが」かかります",
+                          "kanji":  "「時間が」かかります",
+                          "romaji":  "[jikan ga] kakarimasu",
+                          "meaning":  "Tốn / Mất (thời gian)"
+                      },
+                      {
+                          "id":  "11-35",
+                          "stt":  "35",
+                          "kana":  "おにいさん",
+                          "kanji":  "お兄さん",
+                          "romaji":  "oniisan",
+                          "meaning":  "Anh trai (của người khác)"
+                      },
+                      {
+                          "id":  "11-36",
+                          "stt":  "36",
+                          "kana":  "おねえさん",
+                          "kanji":  "お姉さん",
+                          "romaji":  "oneesan",
+                          "meaning":  "Chị gái (của người khác)"
+                      },
+                      {
+                          "id":  "11-37",
+                          "stt":  "37",
+                          "kana":  "おとうとさん",
+                          "kanji":  "弟さん",
+                          "romaji":  "otoutosan",
+                          "meaning":  "Em trai (của người khác)"
+                      },
+                      {
+                          "id":  "11-38",
+                          "stt":  "38",
+                          "kana":  "いもうとさん",
+                          "kanji":  "妹さん",
+                          "romaji":  "imoutosan",
+                          "meaning":  "Em gái (của người khác)"
+                      }
+                  ]
+    },
+    {
+        "lesson_id":  12,
+        "raw_title":  "Dưới đây là bảng từ vựng Bài 12 đầy đủ với cột Romaji, Hiragana/Katakana, Kanji và nghĩa tiếng Việt:",
+        "word_count":  50,
+        "words":  [
+                      {
+                          "id":  "12-1",
+                          "stt":  "1",
+                          "kana":  "かんたん（な）",
+                          "kanji":  "簡単（な）",
+                          "romaji":  "kantan(na)",
+                          "meaning":  "Đơn giản"
+                      },
+                      {
+                          "id":  "12-2",
+                          "stt":  "2",
+                          "kana":  "ふくざつ（な）",
+                          "kanji":  "複雑（な）",
+                          "romaji":  "fukuzatsu(na)",
+                          "meaning":  "Phức tạp"
+                      },
+                      {
+                          "id":  "12-3",
+                          "stt":  "3",
+                          "kana":  "ちかい",
+                          "kanji":  "近い",
+                          "romaji":  "chikai",
+                          "meaning":  "Gần"
+                      },
+                      {
+                          "id":  "12-4",
+                          "stt":  "4",
+                          "kana":  "とおい",
+                          "kanji":  "遠い",
+                          "romaji":  "tooi",
+                          "meaning":  "Xa"
+                      },
+                      {
+                          "id":  "12-5",
+                          "stt":  "5",
+                          "kana":  "はやい",
+                          "kanji":  "早い",
+                          "romaji":  "hayai",
+                          "meaning":  "Sớm"
+                      },
+                      {
+                          "id":  "12-6",
+                          "stt":  "6",
+                          "kana":  "はやい",
+                          "kanji":  "速い",
+                          "romaji":  "hayai",
+                          "meaning":  "Nhanh"
+                      },
+                      {
+                          "id":  "12-7",
+                          "stt":  "7",
+                          "kana":  "おそい",
+                          "kanji":  "遅い",
+                          "romaji":  "osoi",
+                          "meaning":  "Chậm / Trễ"
+                      },
+                      {
+                          "id":  "12-8",
+                          "stt":  "8",
+                          "kana":  "おおい",
+                          "kanji":  "多い",
+                          "romaji":  "ooi",
+                          "meaning":  "Đông, nhiều"
+                      },
+                      {
+                          "id":  "12-9",
+                          "stt":  "9",
+                          "kana":  "すくない",
+                          "kanji":  "少ない",
+                          "romaji":  "sukunai",
+                          "meaning":  "Ít, vắng"
+                      },
+                      {
+                          "id":  "12-10",
+                          "stt":  "10",
+                          "kana":  "あたたかい",
+                          "kanji":  "暖かい",
+                          "romaji":  "atatakai",
+                          "meaning":  "Ấm áp (thời tiết)"
+                      },
+                      {
+                          "id":  "12-11",
+                          "stt":  "11",
+                          "kana":  "あたたかい",
+                          "kanji":  "温かい",
+                          "romaji":  "atatakai",
+                          "meaning":  "Ấm (nước, món ăn, cảm xúc...)"
+                      },
+                      {
+                          "id":  "12-12",
+                          "stt":  "12",
+                          "kana":  "すずしい",
+                          "kanji":  "涼しい",
+                          "romaji":  "suzushii",
+                          "meaning":  "Mát mẻ"
+                      },
+                      {
+                          "id":  "12-13",
+                          "stt":  "13",
+                          "kana":  "おもい",
+                          "kanji":  "重い",
+                          "romaji":  "omoi",
+                          "meaning":  "Nặng"
+                      },
+                      {
+                          "id":  "12-14",
+                          "stt":  "14",
+                          "kana":  "かるい",
+                          "kanji":  "軽い",
+                          "romaji":  "karui",
+                          "meaning":  "Nhẹ"
+                      },
+                      {
+                          "id":  "12-15",
+                          "stt":  "15",
+                          "kana":  "すっぱい",
+                          "kanji":  "酸っぱい",
+                          "romaji":  "suppai",
+                          "meaning":  "Chua"
+                      },
+                      {
+                          "id":  "12-16",
+                          "stt":  "16",
+                          "kana":  "からい",
+                          "kanji":  "辛い",
+                          "romaji":  "karai",
+                          "meaning":  "Cay"
+                      },
+                      {
+                          "id":  "12-17",
+                          "stt":  "17",
+                          "kana":  "しおからい",
+                          "kanji":  "塩辛い",
+                          "romaji":  "shiokarai",
+                          "meaning":  "Mặn"
+                      },
+                      {
+                          "id":  "12-18",
+                          "stt":  "18",
+                          "kana":  "あまい",
+                          "kanji":  "甘い",
+                          "romaji":  "amai",
+                          "meaning":  "Ngọt"
+                      },
+                      {
+                          "id":  "12-19",
+                          "stt":  "19",
+                          "kana":  "きせつ",
+                          "kanji":  "季節",
+                          "romaji":  "kisetsu",
+                          "meaning":  "Mùa"
+                      },
+                      {
+                          "id":  "12-20",
+                          "stt":  "20",
+                          "kana":  "はる",
+                          "kanji":  "春",
+                          "romaji":  "haru",
+                          "meaning":  "Mùa xuân"
+                      },
+                      {
+                          "id":  "12-21",
+                          "stt":  "21",
+                          "kana":  "なつ",
+                          "kanji":  "夏",
+                          "romaji":  "natsu",
+                          "meaning":  "Mùa hạ (hè)"
+                      },
+                      {
+                          "id":  "12-22",
+                          "stt":  "22",
+                          "kana":  "あき",
+                          "kanji":  "秋",
+                          "romaji":  "aki",
+                          "meaning":  "Mùa thu"
+                      },
+                      {
+                          "id":  "12-23",
+                          "stt":  "23",
+                          "kana":  "ふゆ",
+                          "kanji":  "冬",
+                          "romaji":  "fuyu",
+                          "meaning":  "Mùa đông"
+                      },
+                      {
+                          "id":  "12-24",
+                          "stt":  "24",
+                          "kana":  "てんき",
+                          "kanji":  "天気",
+                          "romaji":  "tenki",
+                          "meaning":  "Thời tiết"
+                      },
+                      {
+                          "id":  "12-25",
+                          "stt":  "25",
+                          "kana":  "あめ",
+                          "kanji":  "雨",
+                          "romaji":  "ame",
+                          "meaning":  "Mưa"
+                      },
+                      {
+                          "id":  "12-26",
+                          "stt":  "26",
+                          "kana":  "ゆき",
+                          "kanji":  "雪",
+                          "romaji":  "yuki",
+                          "meaning":  "Tuyết"
+                      },
+                      {
+                          "id":  "12-27",
+                          "stt":  "27",
+                          "kana":  "くもり",
+                          "kanji":  "曇り",
+                          "romaji":  "kumori",
+                          "meaning":  "Nhiều mây, âm u"
+                      },
+                      {
+                          "id":  "12-28",
+                          "stt":  "28",
+                          "kana":  "かぜ",
+                          "kanji":  "風",
+                          "romaji":  "kaze",
+                          "meaning":  "Gió"
+                      },
+                      {
+                          "id":  "12-29",
+                          "stt":  "29",
+                          "kana":  "はれ",
+                          "kanji":  "晴れ",
+                          "romaji":  "hare",
+                          "meaning":  "Trời nắng, quang đãng"
+                      },
+                      {
+                          "id":  "12-30",
+                          "stt":  "30",
+                          "kana":  "ホテル",
+                          "kanji":  "",
+                          "romaji":  "hoteru",
+                          "meaning":  "Khách sạn"
+                      },
+                      {
+                          "id":  "12-31",
+                          "stt":  "31",
+                          "kana":  "くうこう",
+                          "kanji":  "空港",
+                          "romaji":  "kuukou",
+                          "meaning":  "Sân bay"
+                      },
+                      {
+                          "id":  "12-32",
+                          "stt":  "32",
+                          "kana":  "うみ",
+                          "kanji":  "海",
+                          "romaji":  "umi",
+                          "meaning":  "Biển"
+                      },
+                      {
+                          "id":  "12-33",
+                          "stt":  "33",
+                          "kana":  "せかい",
+                          "kanji":  "世界",
+                          "romaji":  "sekai",
+                          "meaning":  "Thế giới"
+                      },
+                      {
+                          "id":  "12-34",
+                          "stt":  "34",
+                          "kana":  "パーティー（をします）",
+                          "kanji":  "",
+                          "romaji":  "paatii (o shimasu)",
+                          "meaning":  "(Mở, tổ chức) Tiệc"
+                      },
+                      {
+                          "id":  "12-35",
+                          "stt":  "35",
+                          "kana":  "おまつり",
+                          "kanji":  "お祭り",
+                          "romaji":  "omatsuri",
+                          "meaning":  "Lễ hội"
+                      },
+                      {
+                          "id":  "12-36",
+                          "stt":  "36",
+                          "kana":  "いけばな",
+                          "kanji":  "生け花",
+                          "romaji":  "ikebana",
+                          "meaning":  "Nghệ thuật cắm hoa"
+                      },
+                      {
+                          "id":  "12-37",
+                          "stt":  "37",
+                          "kana":  "すきやき",
+                          "kanji":  "すき焼き",
+                          "romaji":  "sukiyaki",
+                          "meaning":  "Lẩu sukiyaki"
+                      },
+                      {
+                          "id":  "12-38",
+                          "stt":  "38",
+                          "kana":  "さしみ",
+                          "kanji":  "刺身",
+                          "romaji":  "sashimi",
+                          "meaning":  "Sashimi (món cá sống)"
+                      },
+                      {
+                          "id":  "12-39",
+                          "stt":  "39",
+                          "kana":  "おすし",
+                          "kanji":  "お寿司",
+                          "romaji":  "osushi",
+                          "meaning":  "Sushi"
+                      },
+                      {
+                          "id":  "12-40",
+                          "stt":  "40",
+                          "kana":  "てんぷら",
+                          "kanji":  "天ぷら",
+                          "romaji":  "tenpura",
+                          "meaning":  "Tempura (món chiên tẩm bột)"
+                      },
+                      {
+                          "id":  "12-41",
+                          "stt":  "41",
+                          "kana":  "ぶたにく",
+                          "kanji":  "豚肉",
+                          "romaji":  "butaniku",
+                          "meaning":  "Thịt heo"
+                      },
+                      {
+                          "id":  "12-42",
+                          "stt":  "42",
+                          "kana":  "とりにく",
+                          "kanji":  "鶏肉",
+                          "romaji":  "toriniku",
+                          "meaning":  "Thịt gà"
+                      },
+                      {
+                          "id":  "12-43",
+                          "stt":  "43",
+                          "kana":  "ぎゅうにく",
+                          "kanji":  "牛肉",
+                          "romaji":  "gyuuniku",
+                          "meaning":  "Thịt bò"
+                      },
+                      {
+                          "id":  "12-44",
+                          "stt":  "44",
+                          "kana":  "レモン",
+                          "kanji":  "",
+                          "romaji":  "remon",
+                          "meaning":  "Quả chanh"
+                      },
+                      {
+                          "id":  "12-45",
+                          "stt":  "45",
+                          "kana":  "もみじ",
+                          "kanji":  "紅葉",
+                          "romaji":  "momiji",
+                          "meaning":  "Lá đỏ (lá phong mùa thu)"
+                      },
+                      {
+                          "id":  "12-46",
+                          "stt":  "46",
+                          "kana":  "どちら",
+                          "kanji":  "",
+                          "romaji":  "dochira",
+                          "meaning":  "Phía nào, cái nào (trong 2 cái)"
+                      },
+                      {
+                          "id":  "12-47",
+                          "stt":  "47",
+                          "kana":  "どちらも",
+                          "kanji":  "",
+                          "romaji":  "dochiramo",
+                          "meaning":  "Cả hai, cái nào cũng"
+                      },
+                      {
+                          "id":  "12-48",
+                          "stt":  "48",
+                          "kana":  "いちばん",
+                          "kanji":  "一番",
+                          "romaji":  "ichiban",
+                          "meaning":  "Nhất"
+                      },
+                      {
+                          "id":  "12-49",
+                          "stt":  "49",
+                          "kana":  "ずっと",
+                          "kanji":  "",
+                          "romaji":  "zutto",
+                          "meaning":  "Suốt, (hơn) hẳn"
+                      },
+                      {
+                          "id":  "12-50",
+                          "stt":  "50",
+                          "kana":  "はじめて",
+                          "kanji":  "初めて",
+                          "romaji":  "hajimete",
+                          "meaning":  "Lần đầu tiên"
+                      }
+                  ]
+    },
+    {
+        "lesson_id":  13,
+        "raw_title":  "Bảng tổng hợp từ vựng Bài 13 (Minna no Nihongo)",
+        "word_count":  27,
+        "words":  [
+                      {
+                          "id":  "13-1",
+                          "stt":  "1",
+                          "kana":  "あそびます",
+                          "kanji":  "遊びます",
+                          "romaji":  "asobimasu",
+                          "meaning":  "Chơi",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-2",
+                          "stt":  "2",
+                          "kana":  "およぎます",
+                          "kanji":  "泳ぎます",
+                          "romaji":  "oyogimasu",
+                          "meaning":  "Bơi",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-3",
+                          "stt":  "3",
+                          "kana":  "むかえます",
+                          "kanji":  "迎えます",
+                          "romaji":  "mukaemasu",
+                          "meaning":  "Đón",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-4",
+                          "stt":  "4",
+                          "kana":  "けっこんします",
+                          "kanji":  "結婚します",
+                          "romaji":  "kekkonshimasu",
+                          "meaning":  "Kết hôn",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-5",
+                          "stt":  "5",
+                          "kana":  "かわきます",
+                          "kanji":  "乾きます",
+                          "romaji":  "kawakimasu",
+                          "meaning":  "Khô, khát",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-6",
+                          "stt":  "6",
+                          "kana":  "すきます",
+                          "kanji":  "空きます",
+                          "romaji":  "sukimasu",
+                          "meaning":  "Trống, đói",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-7",
+                          "stt":  "7",
+                          "kana":  "かいものします",
+                          "kanji":  "買い物します",
+                          "romaji":  "kaimonoshimasu",
+                          "meaning":  "Mua sắm",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-8",
+                          "stt":  "8",
+                          "kana":  "しょくじします",
+                          "kanji":  "食事します",
+                          "romaji":  "shokujishimasu",
+                          "meaning":  "Dùng bữa, ăn cơm",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-9",
+                          "stt":  "9",
+                          "kana":  "さんぽします",
+                          "kanji":  "散歩します",
+                          "romaji":  "sanposhimasu",
+                          "meaning":  "Đi dạo, tản bộ",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-10",
+                          "stt":  "10",
+                          "kana":  "たいへん「な」",
+                          "kanji":  "大変「な」",
+                          "romaji":  "taihen[na]",
+                          "meaning":  "Vất vả, khó khăn",
+                          "type":  "Tính từ đôi な"
+                      },
+                      {
+                          "id":  "13-11",
+                          "stt":  "11",
+                          "kana":  "ほしい",
+                          "kanji":  "欲しい",
+                          "romaji":  "hoshii",
+                          "meaning":  "Muốn có",
+                          "type":  "Tính từ đôi い"
+                      },
+                      {
+                          "id":  "13-12",
+                          "stt":  "12",
+                          "kana":  "ひろい",
+                          "kanji":  "広い",
+                          "romaji":  "hiroi",
+                          "meaning":  "Rộng",
+                          "type":  "Tính từ đôi い"
+                      },
+                      {
+                          "id":  "13-13",
+                          "stt":  "13",
+                          "kana":  "せまい",
+                          "kanji":  "狭い",
+                          "romaji":  "semai",
+                          "meaning":  "Chật, hẹp",
+                          "type":  "Tính từ đôi い"
+                      },
+                      {
+                          "id":  "13-14",
+                          "stt":  "14",
+                          "kana":  "プール",
+                          "kanji":  "—",
+                          "romaji":  "puuru",
+                          "meaning":  "Bể bơi, hồ bơi",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "13-15",
+                          "stt":  "15",
+                          "kana":  "かわ",
+                          "kanji":  "川",
+                          "romaji":  "kawa",
+                          "meaning":  "Sông",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "13-16",
+                          "stt":  "16",
+                          "kana":  "つり「をします」",
+                          "kanji":  "釣り",
+                          "romaji":  "tsuri [o shimasu]",
+                          "meaning":  "Câu cá",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "13-17",
+                          "stt":  "17",
+                          "kana":  "スキー「をします」",
+                          "kanji":  "—",
+                          "romaji":  "sukii [o shimasu]",
+                          "meaning":  "Trượt tuyết",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "13-18",
+                          "stt":  "18",
+                          "kana":  "しゅうまつ",
+                          "kanji":  "週末",
+                          "romaji":  "shuumatsu",
+                          "meaning":  "Cuối tuần",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "13-19",
+                          "stt":  "19",
+                          "kana":  "「お」しょうがつ",
+                          "kanji":  "「お」正月",
+                          "romaji":  "[o]shougatsu",
+                          "meaning":  "Tết",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "13-20",
+                          "stt":  "20",
+                          "kana":  "〜ごろ",
+                          "kanji":  "〜頃",
+                          "romaji":  "~goro",
+                          "meaning":  "Khoảng ~ (chỉ mốc thời gian)",
+                          "type":  "Lượng từ"
+                      },
+                      {
+                          "id":  "13-21",
+                          "stt":  "21",
+                          "kana":  "なにか",
+                          "kanji":  "何か",
+                          "romaji":  "nanika",
+                          "meaning":  "Cái gì đó",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "13-22",
+                          "stt":  "22",
+                          "kana":  "どこか",
+                          "kanji":  "—",
+                          "romaji":  "dokoka",
+                          "meaning":  "Đâu đó, chỗ nào đó",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "13-23",
+                          "stt":  "23",
+                          "kana":  "のどが かわきます",
+                          "kanji":  "喉が渇きます",
+                          "romaji":  "nodo ga kawakimasu",
+                          "meaning":  "Khát nước",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-24",
+                          "stt":  "24",
+                          "kana":  "おなかが すきます",
+                          "kanji":  "お腹が空きます",
+                          "romaji":  "onaka ga sukimasu",
+                          "meaning":  "Đói bụng",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-25",
+                          "stt":  "25",
+                          "kana":  "そうしましょう",
+                          "kanji":  "—",
+                          "romaji":  "sou shimashou",
+                          "meaning":  "Nhất trí, hãy làm như vậy đi",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "13-26",
+                          "stt":  "26",
+                          "kana":  "「こどもを」むかえます",
+                          "kanji":  "「子どもを」迎えます",
+                          "romaji":  "[kodomo o] mukaemasu",
+                          "meaning":  "Đón (con cái)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "13-27",
+                          "stt":  "27",
+                          "kana":  "「こうえんを」さんぽします",
+                          "kanji":  "「公園を」散歩します",
+                          "romaji":  "[kouen o] sanposhimasu",
+                          "meaning":  "Đi dạo (ở công viên)",
+                          "type":  "Động từ"
+                      }
+                  ]
+    },
+    {
+        "lesson_id":  14,
+        "raw_title":  "Bảng tổng hợp từ vựng Bài 14 (Minna no Nihongo)",
+        "word_count":  54,
+        "words":  [
+                      {
+                          "id":  "14-1",
+                          "stt":  "1",
+                          "kana":  "つけます",
+                          "kanji":  "—",
+                          "romaji":  "tsukemasu",
+                          "meaning":  "Bật",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-2",
+                          "stt":  "2",
+                          "kana":  "「でんきを」つけます",
+                          "kanji":  "「電気を」つけます",
+                          "romaji":  "[denki o] tsukemasu",
+                          "meaning":  "Bật (đèn, điện)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-3",
+                          "stt":  "3",
+                          "kana":  "けします",
+                          "kanji":  "消します",
+                          "romaji":  "keshimasu",
+                          "meaning":  "Tắt",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-4",
+                          "stt":  "4",
+                          "kana":  "あけます",
+                          "kanji":  "開けます",
+                          "romaji":  "akemasu",
+                          "meaning":  "Mở",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-5",
+                          "stt":  "5",
+                          "kana":  "「ドアを」あけます",
+                          "kanji":  "—",
+                          "romaji":  "[doa o] akemasu",
+                          "meaning":  "Mở (cửa)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-6",
+                          "stt":  "6",
+                          "kana":  "しめます",
+                          "kanji":  "閉めます",
+                          "romaji":  "shimemasu",
+                          "meaning":  "Đóng",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-7",
+                          "stt":  "7",
+                          "kana":  "「ドアを」しめます",
+                          "kanji":  "—",
+                          "romaji":  "[doa o] shimemasu",
+                          "meaning":  "Đóng (cửa)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-8",
+                          "stt":  "8",
+                          "kana":  "かけます",
+                          "kanji":  "—",
+                          "romaji":  "kakemasu",
+                          "meaning":  "Khóa",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-9",
+                          "stt":  "9",
+                          "kana":  "かぎを かけます",
+                          "kanji":  "鍵を掛けます",
+                          "romaji":  "kagi o kakemasu",
+                          "meaning":  "Khóa (cửa)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-10",
+                          "stt":  "10",
+                          "kana":  "いそぎます",
+                          "kanji":  "急ぎます",
+                          "romaji":  "isogimasu",
+                          "meaning":  "Vội, gấp",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-11",
+                          "stt":  "11",
+                          "kana":  "まちます",
+                          "kanji":  "待ちます",
+                          "romaji":  "machimasu",
+                          "meaning":  "Chờ, đợi",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-12",
+                          "stt":  "12",
+                          "kana":  "「かのじょを」まちます",
+                          "kanji":  "「彼女を」待ちます",
+                          "romaji":  "[kanojo o] machimasu",
+                          "meaning":  "Chờ (cô ấy)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-13",
+                          "stt":  "13",
+                          "kana":  "もちます",
+                          "kanji":  "持ちます",
+                          "romaji":  "mochimasu",
+                          "meaning":  "Mang, cầm",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-14",
+                          "stt":  "14",
+                          "kana":  "「にもつを」もちます",
+                          "kanji":  "「荷物を」持ちます",
+                          "romaji":  "[nimotsu o] mochimasu",
+                          "meaning":  "Cầm, mang (hành lý)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-15",
+                          "stt":  "15",
+                          "kana":  "とります",
+                          "kanji":  "取ります",
+                          "romaji":  "torimasu",
+                          "meaning":  "Lấy",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-16",
+                          "stt":  "16",
+                          "kana":  "「しおを」とります",
+                          "kanji":  "「塩を」取ります",
+                          "romaji":  "[shio o] torimasu",
+                          "meaning":  "Lấy (muối)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-17",
+                          "stt":  "17",
+                          "kana":  "てつだいます",
+                          "kanji":  "手伝います",
+                          "romaji":  "tetsudaimasu",
+                          "meaning":  "Giúp đỡ",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-18",
+                          "stt":  "18",
+                          "kana":  "「しごとを」てつだいます",
+                          "kanji":  "「仕事を」手伝います",
+                          "romaji":  "[shigoto o] tetsudaimasu",
+                          "meaning":  "Giúp đỡ (công việc)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-19",
+                          "stt":  "19",
+                          "kana":  "よびます",
+                          "kanji":  "呼びます",
+                          "romaji":  "yobimasu",
+                          "meaning":  "Gọi",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-20",
+                          "stt":  "20",
+                          "kana":  "「なまえを」よびます",
+                          "kanji":  "「名前を」呼びます",
+                          "romaji":  "[namae o] yobimasu",
+                          "meaning":  "Gọi (tên)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-21",
+                          "stt":  "21",
+                          "kana":  "はなします",
+                          "kanji":  "話します",
+                          "romaji":  "hanashimasu",
+                          "meaning":  "Nói chuyện",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-22",
+                          "stt":  "22",
+                          "kana":  "「ともだちと」はなします",
+                          "kanji":  "「友達と」話します",
+                          "romaji":  "[tomodachi to] hanashimasu",
+                          "meaning":  "Nói chuyện (với bạn)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-23",
+                          "stt":  "23",
+                          "kana":  "つかいます",
+                          "kanji":  "使います",
+                          "romaji":  "tsukaimasu",
+                          "meaning":  "Sử dụng, dùng",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-24",
+                          "stt":  "24",
+                          "kana":  "「くるまを」とめます",
+                          "kanji":  "「車を」止めます",
+                          "romaji":  "[kuruma o] tomemasu",
+                          "meaning":  "Đỗ, dừng (xe)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-25",
+                          "stt":  "25",
+                          "kana":  "みせます",
+                          "kanji":  "見せます",
+                          "romaji":  "misemasu",
+                          "meaning":  "Cho xem",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-26",
+                          "stt":  "26",
+                          "kana":  "「パスポートを」みせます",
+                          "kanji":  "—",
+                          "romaji":  "[pasupooto o] misemasu",
+                          "meaning":  "Cho xem (hộ chiếu)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-27",
+                          "stt":  "27",
+                          "kana":  "おしえます",
+                          "kanji":  "教えます",
+                          "romaji":  "oshiemasu",
+                          "meaning":  "Nói, cho biết, chỉ dạy",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-28",
+                          "stt":  "28",
+                          "kana":  "「じゅうしょを」おしえます",
+                          "kanji":  "「住所を」教えます",
+                          "romaji":  "[juusho o] oshiemasu",
+                          "meaning":  "Cho biết (địa chỉ)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-29",
+                          "stt":  "29",
+                          "kana":  "すわります",
+                          "kanji":  "座ります",
+                          "romaji":  "suwarimasu",
+                          "meaning":  "Ngồi",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-30",
+                          "stt":  "30",
+                          "kana":  "「いすに」すわります",
+                          "kanji":  "—",
+                          "romaji":  "[isu ni] suwarimasu",
+                          "meaning":  "Ngồi (xuống ghế)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-31",
+                          "stt":  "31",
+                          "kana":  "たちます",
+                          "kanji":  "立ちます",
+                          "romaji":  "tachimasu",
+                          "meaning":  "Đứng dậy",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-32",
+                          "stt":  "32",
+                          "kana":  "はいります",
+                          "kanji":  "入ります",
+                          "romaji":  "hairimasu",
+                          "meaning":  "Vào",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-33",
+                          "stt":  "33",
+                          "kana":  "ふります",
+                          "kanji":  "降ります",
+                          "romaji":  "furimasu",
+                          "meaning":  "Rơi, đổ (mưa, tuyết)",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-34",
+                          "stt":  "34",
+                          "kana":  "「あめが」ふります",
+                          "kanji":  "「雨が」降ります",
+                          "romaji":  "[ame ga] furimasu",
+                          "meaning":  "Mưa rơi",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-35",
+                          "stt":  "35",
+                          "kana":  "コピーします",
+                          "kanji":  "—",
+                          "romaji":  "kopiishimasu",
+                          "meaning":  "Copy, photocopy",
+                          "type":  "Động từ"
+                      },
+                      {
+                          "id":  "14-36",
+                          "stt":  "36",
+                          "kana":  "でんき",
+                          "kanji":  "電気",
+                          "romaji":  "denki",
+                          "meaning":  "Điện, đèn điện",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-37",
+                          "stt":  "37",
+                          "kana":  "エアコン",
+                          "kanji":  "—",
+                          "romaji":  "eakon",
+                          "meaning":  "Điều hòa, máy lạnh",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-38",
+                          "stt":  "38",
+                          "kana":  "パスポート",
+                          "kanji":  "—",
+                          "romaji":  "pasupooto",
+                          "meaning":  "Hộ chiếu",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-39",
+                          "stt":  "39",
+                          "kana":  "なまえ",
+                          "kanji":  "名前",
+                          "romaji":  "namae",
+                          "meaning":  "Tên",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-40",
+                          "stt":  "40",
+                          "kana":  "じゅうしょ",
+                          "kanji":  "住所",
+                          "romaji":  "juusho",
+                          "meaning":  "Địa chỉ",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-41",
+                          "stt":  "41",
+                          "kana":  "ちず",
+                          "kanji":  "地図",
+                          "romaji":  "chizu",
+                          "meaning":  "Bản đồ",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-42",
+                          "stt":  "42",
+                          "kana":  "しお",
+                          "kanji":  "塩",
+                          "romaji":  "shio",
+                          "meaning":  "Muối",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-43",
+                          "stt":  "43",
+                          "kana":  "さとう",
+                          "kanji":  "砂糖",
+                          "romaji":  "satou",
+                          "meaning":  "Đường",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-44",
+                          "stt":  "44",
+                          "kana":  "もんだい",
+                          "kanji":  "問題",
+                          "romaji":  "mondai",
+                          "meaning":  "Câu hỏi, vấn đề",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-45",
+                          "stt":  "45",
+                          "kana":  "こたえ",
+                          "kanji":  "答え",
+                          "romaji":  "kotae",
+                          "meaning":  "Câu trả lời",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-46",
+                          "stt":  "46",
+                          "kana":  "おつり",
+                          "kanji":  "お釣り",
+                          "romaji":  "otsuri",
+                          "meaning":  "Tiền thừa, tiền thối lại",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-47",
+                          "stt":  "47",
+                          "kana":  "〜かた（よみかた、かきかた）",
+                          "kanji":  "〜方（読み方、書き方）",
+                          "romaji":  "~kata (yomikata, kakikata)",
+                          "meaning":  "Cách ~ (cách đọc, cách viết...)",
+                          "type":  "Danh từ"
+                      },
+                      {
+                          "id":  "14-48",
+                          "stt":  "48",
+                          "kana":  "まっすぐ",
+                          "kanji":  "—",
+                          "romaji":  "massugu",
+                          "meaning":  "Thẳng, đi thẳng",
+                          "type":  "Phó từ"
+                      },
+                      {
+                          "id":  "14-49",
+                          "stt":  "49",
+                          "kana":  "あとで",
+                          "kanji":  "後で",
+                          "romaji":  "atode",
+                          "meaning":  "Sau, lát nữa",
+                          "type":  "Phó từ"
+                      },
+                      {
+                          "id":  "14-50",
+                          "stt":  "50",
+                          "kana":  "すぐ",
+                          "kanji":  "—",
+                          "romaji":  "sugu",
+                          "meaning":  "Ngay lập tức",
+                          "type":  "Phó từ"
+                      },
+                      {
+                          "id":  "14-51",
+                          "stt":  "51",
+                          "kana":  "また",
+                          "kanji":  "—",
+                          "romaji":  "mata",
+                          "meaning":  "Lại, nữa",
+                          "type":  "Phó từ"
+                      },
+                      {
+                          "id":  "14-52",
+                          "stt":  "52",
+                          "kana":  "ゆっくり",
+                          "kanji":  "—",
+                          "romaji":  "yukkuri",
+                          "meaning":  "Chậm lại, thong thả, thoải mái",
+                          "type":  "Phó từ"
+                      },
+                      {
+                          "id":  "14-53",
+                          "stt":  "53",
+                          "kana":  "もうすこし",
+                          "kanji":  "もう少し",
+                          "romaji":  "mousukoshi",
+                          "meaning":  "Thêm một chút nữa",
+                          "type":  "Phó từ"
+                      },
+                      {
+                          "id":  "14-54",
+                          "stt":  "54",
+                          "kana":  "もう〜",
+                          "kanji":  "—",
+                          "romaji":  "mou~",
+                          "meaning":  "Thêm ~",
+                          "type":  "Phó từ"
+                      }
+                  ]
+    }
+];
+</script>
+
+    <script>
+        // State
+        let currentTab = 'list'; // list, flashcard, quiz, starred
+        let currentLesson = 'all'; // 'all', 8, 9, 10, 11, 12, 13, 14
+        let searchQuery = '';
+        let showRomaji = localStorage.getItem('jp_show_romaji') !== 'false';
+        let hideMeaning = false;
+
+        let starredWords = JSON.parse(localStorage.getItem('jp_starred_words') || '[]');
+        let masteredWords = JSON.parse(localStorage.getItem('jp_mastered_words') || '[]');
+        let reviewWords = JSON.parse(localStorage.getItem('jp_review_words') || '[]');
+
+        // Flashcard State
+        let fcList = [];
+        let fcIndex = 0;
+        let fcFlipped = false;
+
+        // Quiz State
+        let quizList = [];
+        let quizIndex = 0;
+        let quizScore = 0;
+        let quizAnswered = false;
+
+        // Audio Speech Synthesis
+        function speakMobileWord(w) {
+            if (!w) return;
+            const txt = w.kana || w.kanji;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(txt);
+                u.lang = 'ja-JP';
+                u.rate = 0.9;
+                window.speechSynthesis.speak(u);
+            }
+        }
+
+        // Web Audio SFX
+        function playMobileSfx(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                const now = ctx.currentTime;
+                if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.1);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                } else {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.setValueAtTime(164.81, now + 0.15);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                }
+            } catch (e) {}
+        }
+
+        // Flatten all words
+        function getAllVocab() {
+            if (!window.japaneseVocabData) return [];
+            let res = [];
+            window.japaneseVocabData.forEach(lesson => {
+                lesson.words.forEach(w => {
+                    res.push({ ...w, lesson_id: lesson.lesson_id });
+                });
+            });
+            return res;
+        }
+
+        function getFilteredVocab() {
+            let list = getAllVocab();
+            if (currentTab === 'starred') {
+                list = list.filter(w => starredWords.includes(w.id));
+            } else if (currentLesson !== 'all') {
+                list = list.filter(w => w.lesson_id === parseInt(currentLesson));
+            }
+
+            if (searchQuery.trim()) {
+                const q = searchQuery.toLowerCase().trim();
+                list = list.filter(w => 
+                    (w.kana && w.kana.toLowerCase().includes(q)) ||
+                    (w.kanji && w.kanji.toLowerCase().includes(q)) ||
+                    (w.romaji && w.romaji.toLowerCase().includes(q)) ||
+                    (w.meaning && w.meaning.toLowerCase().includes(q))
+                );
+            }
+            return list;
+        }
+
+        // Init App
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePillCounts();
+            updateRomajiUI();
+            updateStarBadge();
+            renderVocabList();
+        });
+
+        function updatePillCounts() {
+            const all = getAllVocab();
+            const cntAll = document.getElementById('pill-count-all');
+            if (cntAll) cntAll.textContent = all.length;
+            [8, 9, 10, 11, 12, 13, 14].forEach(l => {
+                const el = document.getElementById(`pill-count-${l}`);
+                if (el) el.textContent = all.filter(w => w.lesson_id === l).length;
+            });
+        }
+
+        function updateStarBadge() {
+            const b = document.getElementById('nav-star-count');
+            if (b) {
+                if (starredWords.length > 0) {
+                    b.style.display = 'block';
+                    b.textContent = starredWords.length;
+                } else {
+                    b.style.display = 'none';
+                }
+            }
+        }
+
+        // Romaji Toggle
+        function toggleRomajiMobile() {
+            showRomaji = !showRomaji;
+            try {
+                localStorage.setItem('jp_show_romaji', showRomaji);
+            } catch (e) {}
+            updateRomajiUI();
+            if (currentTab === 'flashcard') renderCurrentMobileFc();
+            if (currentTab === 'quiz') renderCurrentQuizMobile();
+        }
+
+        function updateRomajiUI() {
+            document.body.classList.toggle('hide-romaji', !showRomaji);
+            const btn = document.getElementById('btn-romaji-mobile');
+            const txt = document.getElementById('romaji-txt');
+            if (btn) btn.classList.toggle('active', !showRomaji);
+            if (txt) {
+                txt.textContent = showRomaji ? 'Romaji: BẬT' : 'Romaji: TẮT';
+                txt.style.color = showRomaji ? 'var(--emerald)' : 'var(--sakura)';
+            }
+        }
+
+        function toggleBlindMeaning() {
+            hideMeaning = !hideMeaning;
+            document.body.classList.toggle('hide-meaning', hideMeaning);
+            const btn = document.getElementById('btn-blind-meaning');
+            if (btn) btn.classList.toggle('active', hideMeaning);
+        }
+
+        // Lesson Filter
+        function selectLessonMobile(lessonId) {
+            currentLesson = lessonId;
+            const pills = document.querySelectorAll('.pill-tab');
+            pills.forEach(p => {
+                if (lessonId === 'all' && p.textContent.includes('Tất cả')) {
+                    p.classList.add('active');
+                } else if (lessonId !== 'all' && p.textContent.includes(`Bài ${lessonId}`)) {
+                    p.classList.add('active');
+                } else {
+                    p.classList.remove('active');
+                }
+            });
+
+            if (currentTab === 'list' || currentTab === 'starred') {
+                renderVocabList();
+            } else if (currentTab === 'flashcard') {
+                initMobileFlashcards();
+            } else if (currentTab === 'quiz') {
+                initMobileQuiz();
+            }
+        }
+
+        function handleMobileSearch(val) {
+            searchQuery = val;
+            const clr = document.getElementById('btn-search-clear');
+            if (clr) clr.style.display = val ? 'block' : 'none';
+            renderVocabList();
+        }
+
+        function clearMobileSearch() {
+            searchQuery = '';
+            const inp = document.getElementById('mobile-search-input');
+            if (inp) {
+                inp.value = '';
+                inp.focus();
+            }
+            const clr = document.getElementById('btn-search-clear');
+            if (clr) clr.style.display = 'none';
+            renderVocabList();
+        }
+
+        // Bottom Tab Switcher
+        function switchMobileTab(tab) {
+            currentTab = tab;
+            ['list', 'flashcard', 'quiz', 'starred'].forEach(t => {
+                const btn = document.getElementById(`tab-nav-${t}`);
+                if (btn) btn.classList.toggle('active', t === tab);
+                const sec = document.getElementById(`view-${t}`);
+                if (sec) sec.style.display = (t === tab) ? 'flex' : 'none';
+            });
+
+            // Search bar only for list and starred
+            const searchBar = document.getElementById('mobile-search-area');
+            if (searchBar) {
+                searchBar.style.display = (tab === 'list' || tab === 'starred') ? 'flex' : 'none';
+            }
+
+            if (tab === 'list' || tab === 'starred') {
+                renderVocabList();
+            } else if (tab === 'flashcard') {
+                initMobileFlashcards();
+            } else if (tab === 'quiz') {
+                initMobileQuiz();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Render List / Starred
+        function renderVocabList() {
+            const container = document.getElementById(currentTab === 'starred' ? 'view-starred' : 'view-list');
+            if (!container) return;
+
+            const words = getFilteredVocab();
+            if (words.length === 0) {
+                container.innerHTML = `
+                    <div class="mobile-empty-state">
+                        <div style="font-size: 40px; margin-bottom: 8px;">${currentTab === 'starred' ? '⭐' : '🔍'}</div>
+                        <h3 style="font-size: 16px;">${currentTab === 'starred' ? 'Chưa có từ vựng nào được lưu' : 'Không tìm thấy từ vựng'}</h3>
+                        <p style="font-size: 12px; margin-top: 4px;">${currentTab === 'starred' ? 'Bấm nút ngôi sao ⭐ ở bất kỳ từ nào để lưu vào danh sách này.' : 'Thử đổi từ khóa hoặc chọn bài học khác.'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = words.map(w => {
+                const isStarred = starredWords.includes(w.id);
+                return `
+                    <div class="mobile-card" id="card-${w.id}">
+                        <div class="mobile-card-top">
+                            <div class="card-badges-row">
+                                <span class="tag-lesson">Bài ${w.lesson_id} #${w.stt}</span>
+                                <span class="tag-type">${w.type || 'Từ vựng'}</span>
+                            </div>
+                            <div class="card-top-btns">
+                                <button class="btn-circle ${isStarred ? 'starred' : ''}" onclick="toggleStarMobile('${w.id}')" title="Lưu từ yêu thích">
+                                    ⭐
+                                </button>
+                                <button class="btn-circle" onclick="speakMobileWord(${JSON.stringify(w).replace(/"/g, '&quot;')})" title="Nghe phát âm">
+                                    🔊
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-card-japanese">
+                            ${w.kanji ? `<div class="jp-kanji jp-font">${w.kanji}</div>` : ''}
+                            <div class="jp-kana jp-font" style="${!w.kanji ? 'font-size: 20px; font-weight: 700; color: #fff;' : ''}">${w.kana}</div>
+                            <div class="jp-romaji">${w.romaji}</div>
+                        </div>
+
+                        <div class="mobile-card-meaning" onclick="this.style.filter='none'; this.style.opacity='1';">
+                            ${w.meaning}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleStarMobile(id) {
+            if (starredWords.includes(id)) {
+                starredWords = starredWords.filter(x => x !== id);
+            } else {
+                starredWords.push(id);
+            }
+            try {
+                localStorage.setItem('jp_starred_words', JSON.stringify(starredWords));
+            } catch (e) {}
+            updateStarBadge();
+            renderVocabList();
+        }
+
+        // ==========================================
+        // FLASHCARD 3D MOBILE
+        // ==========================================
+        function initMobileFlashcards() {
+            fcList = getFilteredVocab();
+            if (fcList.length === 0) fcList = getAllVocab();
+            fcIndex = 0;
+            fcFlipped = false;
+            renderCurrentMobileFc();
+        }
+
+        function getCurrentFcItem() {
+            return fcList[fcIndex];
+        }
+
+        function renderCurrentMobileFc() {
+            const cardEl = document.getElementById('fc-card-elem');
+            if (cardEl) cardEl.classList.remove('flipped');
+            fcFlipped = false;
+
+            const w = getCurrentFcItem();
+            if (!w) return;
+
+            document.getElementById('fc-counter-txt').textContent = `Thẻ ${fcIndex + 1} / ${fcList.length}`;
+            const pct = ((fcIndex + 1) / fcList.length) * 100;
+            document.getElementById('fc-bar-fill').style.width = `${pct}%`;
+
+            document.getElementById('fc-tag-lesson').textContent = `Bài ${w.lesson_id} #${w.stt}`;
+            document.getElementById('fc-tag-type').textContent = w.type || 'Từ vựng';
+
+            const starBtn = document.getElementById('fc-star-btn');
+            if (starBtn) starBtn.classList.toggle('starred', starredWords.includes(w.id));
+
+            document.getElementById('fc-kanji').textContent = w.kanji || w.kana;
+            document.getElementById('fc-kana').textContent = w.kanji ? w.kana : '';
+            const fcRomajiEl = document.getElementById('fc-romaji');
+            fcRomajiEl.textContent = w.romaji;
+            fcRomajiEl.style.display = showRomaji ? 'block' : 'none';
+
+            document.getElementById('fc-meaning-back').textContent = w.meaning;
+            document.getElementById('fc-kana-back').textContent = showRomaji ? `${w.kana} (${w.romaji})` : w.kana;
+        }
+
+        function flipMobileFc() {
+            const cardEl = document.getElementById('fc-card-elem');
+            fcFlipped = !fcFlipped;
+            if (cardEl) cardEl.classList.toggle('flipped', fcFlipped);
+        }
+
+        function prevMobileFc() {
+            if (fcIndex > 0) {
+                fcIndex--;
+                renderCurrentMobileFc();
+            }
+        }
+
+        function nextMobileFc() {
+            if (fcIndex < fcList.length - 1) {
+                fcIndex++;
+                renderCurrentMobileFc();
+            } else {
+                fcIndex = 0;
+                renderCurrentMobileFc();
+            }
+        }
+
+        function shuffleMobileFc() {
+            fcList.sort(() => Math.random() - 0.5);
+            fcIndex = 0;
+            renderCurrentMobileFc();
+        }
+
+        function speakCurrentFc() {
+            speakMobileWord(getCurrentFcItem());
+        }
+
+        function toggleStarCurrentFc() {
+            const w = getCurrentFcItem();
+            if (w) toggleStarMobile(w.id);
+            const starBtn = document.getElementById('fc-star-btn');
+            if (starBtn) starBtn.classList.toggle('starred', starredWords.includes(w.id));
+        }
+
+        function markFcMastered() {
+            const w = getCurrentFcItem();
+            if (w && !masteredWords.includes(w.id)) {
+                masteredWords.push(w.id);
+                reviewWords = reviewWords.filter(x => x !== w.id);
+                localStorage.setItem('jp_mastered_words', JSON.stringify(masteredWords));
+                localStorage.setItem('jp_review_words', JSON.stringify(reviewWords));
+            }
+            playMobileSfx('correct');
+            nextMobileFc();
+        }
+
+        function markFcReview() {
+            const w = getCurrentFcItem();
+            if (w && !reviewWords.includes(w.id)) {
+                reviewWords.push(w.id);
+                masteredWords = masteredWords.filter(x => x !== w.id);
+                localStorage.setItem('jp_review_words', JSON.stringify(reviewWords));
+                localStorage.setItem('jp_mastered_words', JSON.stringify(masteredWords));
+            }
+            playMobileSfx('wrong');
+            nextMobileFc();
+        }
+
+        // ==========================================
+        // QUIZ PRACTICE MOBILE
+        // ==========================================
+        function initMobileQuiz() {
+            let pool = getFilteredVocab();
+            if (pool.length < 4) pool = getAllVocab();
+            const shuffled = [...pool].sort(() => Math.random() - 0.5);
+            const targetQuestions = shuffled.slice(0, Math.min(15, shuffled.length));
+
+            quizList = targetQuestions.map(targetWord => {
+                let distractors = pool.filter(w => w.id !== targetWord.id).sort(() => Math.random() - 0.5).slice(0, 3);
+                let options = [targetWord, ...distractors].sort(() => Math.random() - 0.5);
+                return { target: targetWord, options: options };
+            });
+
+            quizIndex = 0;
+            quizScore = 0;
+            quizAnswered = false;
+            document.getElementById('quiz-score-val').textContent = '0';
+            document.getElementById('quiz-num-total').textContent = quizList.length;
+            renderCurrentQuizMobile();
+        }
+
+        function renderCurrentQuizMobile() {
+            quizAnswered = false;
+            document.getElementById('btn-quiz-next').style.display = 'none';
+            const fbBox = document.getElementById('quiz-fb-box');
+            fbBox.className = 'quiz-feedback-box';
+            fbBox.style.display = 'none';
+
+            const q = quizList[quizIndex];
+            if (!q) {
+                // Done
+                document.getElementById('view-quiz').innerHTML = `
+                    <div class="mobile-empty-state">
+                        <div style="font-size: 48px; margin-bottom: 12px;">🎉</div>
+                        <h2 style="font-size: 20px; font-weight: 800;">Hoàn thành trắc nghiệm!</h2>
+                        <p style="font-size: 14px; color: var(--text-sub); margin-top: 6px;">
+                            Điểm số của bạn: <strong style="color: var(--emerald); font-size: 18px;">${quizScore}</strong> điểm.
+                        </p>
+                        <button class="btn-fc-nav" style="background: var(--primary); margin: 20px auto 0; padding: 12px 24px;" onclick="initMobileQuiz()">
+                            🔄 Luyện lại lần nữa
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            document.getElementById('quiz-num-curr').textContent = quizIndex + 1;
+            document.getElementById('quiz-badge-lesson').textContent = `Bài ${q.target.lesson_id} - Từ vựng`;
+            document.getElementById('quiz-main-text').textContent = q.target.kanji || q.target.kana;
+
+            const romajiPart = showRomaji ? ` (${q.target.romaji})` : '';
+            document.getElementById('quiz-sub-text').textContent = q.target.kanji 
+                ? `${q.target.kana}${romajiPart}` 
+                : (showRomaji ? q.target.romaji : '');
+
+            const letters = ['A', 'B', 'C', 'D'];
+            const optBox = document.getElementById('quiz-options-box');
+            optBox.innerHTML = q.options.map((opt, i) => `
+                <button class="btn-quiz-opt" onclick="submitQuizMobile(${i}, ${opt.id === q.target.id})">
+                    <span class="opt-tag">${letters[i]}</span>
+                    <span>${opt.meaning}</span>
+                </button>
+            `).join('');
+        }
+
+        function submitQuizMobile(chosenIdx, isCorrect) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+
+            const q = quizList[quizIndex];
+            const buttons = document.querySelectorAll('.btn-quiz-opt');
+            buttons.forEach(b => b.classList.add('disabled'));
+
+            const fbBox = document.getElementById('quiz-fb-box');
+
+            if (isCorrect) {
+                playMobileSfx('correct');
+                quizScore += 10;
+                document.getElementById('quiz-score-val').textContent = quizScore;
+                buttons[chosenIdx].classList.add('correct');
+                fbBox.className = 'quiz-feedback-box correct';
+                fbBox.innerHTML = `<strong>Chính xác! ✨</strong> ${q.target.kana} = ${q.target.meaning}`;
+            } else {
+                playMobileSfx('wrong');
+                buttons[chosenIdx].classList.add('wrong');
+                q.options.forEach((opt, idx) => {
+                    if (opt.id === q.target.id) buttons[idx].classList.add('correct');
+                });
+                fbBox.className = 'quiz-feedback-box wrong';
+                fbBox.innerHTML = `<strong>Chưa đúng! 💡</strong> Đáp án là: <strong>${q.target.meaning}</strong> (${q.target.kana})`;
+            }
+
+            speakMobileWord(q.target);
+            document.getElementById('btn-quiz-next').style.display = 'inline-flex';
+        }
+
+        function nextQuizMobile() {
+            quizIndex++;
+            renderCurrentQuizMobile();
+        }
+    </script>
+</body>
+</html>
